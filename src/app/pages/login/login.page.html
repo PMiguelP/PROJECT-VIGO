@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title (click)="navigateToHome()">
+      <img
+        src="assets/icon/favicon.png"
+        alt="Version Icon"
+        style="width: 24px; height: 24px; margin-right: 8px"
+      />
+      Login
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form>
+    <ion-item>
+      <ion-input
+        type="email"
+        placeholder="userteste@gmail.com"
+        slot="start"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        placeholder="password"
+        type="password"
+        slot="start"
+      ></ion-input>
+    </ion-item>
+    <ion-button type="submit">Log In</ion-button>
+  </form>
+</ion-content>
