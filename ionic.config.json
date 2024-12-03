@@ -1,0 +1,7 @@
+{
+  "name": "VIGO",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
