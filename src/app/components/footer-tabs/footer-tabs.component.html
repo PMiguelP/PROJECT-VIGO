@@ -1,0 +1,31 @@
+<ion-footer>
+  <ion-toolbar class="footer-toolbar">
+    <ion-tabs>
+      <ion-tab-bar slot="bottom" class="custom-tab-bar">
+        <ion-tab-button
+          tab="home"
+          (click)="navigateToHome()"
+          class="tab-button"
+        >
+          <ion-icon name="home-sharp" class="tab-icon"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="wallet" class="tab-button">
+          <ion-icon name="bag-sharp" class="tab-icon"></ion-icon>
+          <ion-label>Wallet</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="guide" class="tab-button">
+          <ion-icon name="compass-sharp" class="tab-icon"></ion-icon>
+          <ion-label>Guide</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="chart" class="tab-button">
+          <ion-icon name="analytics-sharp" class="tab-icon"></ion-icon>
+          <ion-label>Chart</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
