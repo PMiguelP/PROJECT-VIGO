@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'; // Importar OnDestroy
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,26 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
+  isDesktop: boolean = false;
+
   constructor(private router: Router) {}
 
   navigateToHome() {
     this.router.navigate(['/home']);
   }
 
-  ngOnInit() {}
+  checkScreenSize() {
+    this.isDesktop = window.innerWidth >= 768;
+  }
+
+  ngOnInit() {
+    this.checkScreenSize();
+
+    window.addEventListener('resize', () => this.checkScreenSize());
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', () => this.checkScreenSize());
+  }
 }

@@ -1,0 +1,48 @@
+/***** Estilos Gerais *****/
+.login-grid {
+  height: 100vh; /* Garante altura total do viewport */
+}
+
+.login-container {
+  height: 100%;
+  align-items: stretch; /* Faz as colunas ocuparem 100% da altura */
+}
+
+/***** Seção Esquerda: Azul *****/
+.blue-background {
+  background-color: #007bff; /* Fundo azul */
+  color: #ffffff; /* Texto branco */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Altura total */
+}
+
+/***** Seção Direita: Preta *****/
+.black-background {
+  background-color: #000000; /* Fundo preto */
+  color: #ffffff; /* Texto branco */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Altura total */
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #ffffff; /* Fundo branco para o card */
+  color: #333333; /* Texto escuro */
+}
+
+/***** Responsividade: Mobile *****/
+@media (max-width: 768px) {
+  .blue-background {
+    display: none; /* Esconde a seção azul em telas pequenas */
+  }
+
+  .black-background {
+    width: 100%; /* Faz a seção direita ocupar toda a largura */
+  }
+}

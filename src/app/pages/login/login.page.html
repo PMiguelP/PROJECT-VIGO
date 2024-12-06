@@ -1,32 +1,53 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title (click)="navigateToHome()">
-      <img
-        src="assets/icon/favicon.png"
-        alt="Version Icon"
-        style="width: 24px; height: 24px; margin-right: 8px"
-      />
-      Login
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid class="login-grid">
+    <ion-row class="login-container">
+      <!-- Seção Esquerda: Informação -->
+      <ion-col size="12" size-lg="6" class="left-section blue-background">
+        <div class="info-container">
+          <h1>Vigo</h1>
+          <img src="../../../assets/images/celebrating.png" alt="celebrating" />
+          <p>
+            Celebrate the journey to new beginnings! Plan the ultimate bachelor
+            or bachelorette party with ease. From unforgettable itineraries to
+            personalized travel plans, we help you make every moment
+            extraordinary. Your adventure starts here!
+          </p>
+        </div>
+      </ion-col>
 
-<ion-content [fullscreen]="true">
-  <form>
-    <ion-item>
-      <ion-input
-        type="email"
-        placeholder="userteste@gmail.com"
-        slot="start"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input
-        placeholder="password"
-        type="password"
-        slot="start"
-      ></ion-input>
-    </ion-item>
-    <ion-button type="submit">Log In</ion-button>
-  </form>
+      <!-- Seção Direita: Formulário de Login -->
+      <ion-col size="12" size-lg="6" class="right-section black-background">
+        <ion-card class="login-card">
+          <ion-card-header>
+            <ion-card-title>Welcome back!</ion-card-title>
+            <ion-card-subtitle>Log in to your account</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                type="email"
+                placeholder="Enter your email"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input
+                type="password"
+                placeholder="Enter your password"
+              ></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-checkbox slot="start"></ion-checkbox>
+              <ion-label>Stay logged in</ion-label>
+            </ion-item>
+            <ion-button expand="block" color="primary">Login</ion-button>
+            <ion-item lines="none" class="ion-text-center">
+              <p>Don't have an account? <a href="#">Sign up</a></p>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
