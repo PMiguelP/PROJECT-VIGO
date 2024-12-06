@@ -1,8 +1,8 @@
-<ion-content class="ion-padding">
-  <ion-grid class="login-grid">
-    <ion-row class="login-container">
-      <!-- Seção Esquerda: Informação -->
-      <ion-col size="12" size-lg="6" class="left-section blue-background">
+<ion-content class="login-page">
+  <ion-grid>
+    <ion-row>
+      <!-- Seção Esquerda: Informação (escondida para telas médias) -->
+      <ion-col size="12" size-lg="6" class="blue-background ion-hide-md-down">
         <div class="info-container">
           <h1>Vigo</h1>
           <img src="../../../assets/images/celebrating.png" alt="celebrating" />
@@ -15,38 +15,50 @@
         </div>
       </ion-col>
 
-      <!-- Seção Direita: Formulário de Login -->
-      <ion-col size="12" size-lg="6" class="right-section black-background">
-        <ion-card class="login-card">
-          <ion-card-header>
-            <ion-card-title>Welcome back!</ion-card-title>
-            <ion-card-subtitle>Log in to your account</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-item>
-              <ion-label position="floating">Email</ion-label>
-              <ion-input
-                type="email"
-                placeholder="Enter your email"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Password</ion-label>
-              <ion-input
-                type="password"
-                placeholder="Enter your password"
-              ></ion-input>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-checkbox slot="start"></ion-checkbox>
-              <ion-label>Stay logged in</ion-label>
-            </ion-item>
-            <ion-button expand="block" color="primary">Login</ion-button>
-            <ion-item lines="none" class="ion-text-center">
-              <p>Don't have an account? <a href="#">Sign up</a></p>
-            </ion-item>
-          </ion-card-content>
-        </ion-card>
+      <!-- Formulário de Login (sempre visível) -->
+      <ion-col size="12" size-md="12" size-lg="6" class="login-container">
+        <div class="login-box">
+          <ion-icon name="arrow-back-outline" class="back-icon"></ion-icon>
+          <h1>Log in</h1>
+          <p>Log in to get started!</p>
+
+          <ion-item class="input-item">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input
+              type="email"
+              placeholder="youremail@gmail.com"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item class="input-item">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input
+              type="password"
+              placeholder="Enter your password"
+            ></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" class="login-button">LOG IN</ion-button>
+
+          <div class="divider">
+            <div class="line"></div>
+            <p>OR</p>
+            <div class="line"></div>
+          </div>
+
+          <div class="social-buttons">
+            <ion-button class="social-button" fill="outline">
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-button>
+            <ion-button class="social-button" fill="outline">
+              <ion-icon name="logo-apple"></ion-icon>
+            </ion-button>
+          </div>
+
+          <p class="signup-text">
+            Don’t have an account? <a href="#">Sign up</a>
+          </p>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
