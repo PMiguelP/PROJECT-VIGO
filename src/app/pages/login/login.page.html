@@ -1,65 +1,43 @@
-<ion-content class="login-page">
-  <ion-grid>
-    <ion-row>
-      <!-- Seção Esquerda: Informação (escondida para telas médias) -->
-      <ion-col size="12" size-lg="6" class="blue-background ion-hide-md-down">
-        <div class="info-container">
-          <h1>Vigo</h1>
-          <img src="../../../assets/images/celebrating.png" alt="celebrating" />
-          <p>
-            Celebrate the journey to new beginnings! Plan the ultimate bachelor
-            or bachelorette party with ease. From unforgettable itineraries to
-            personalized travel plans, we help you make every moment
-            extraordinary. Your adventure starts here!
-          </p>
-        </div>
-      </ion-col>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-      <!-- Formulário de Login (sempre visível) -->
-      <ion-col size="12" size-md="12" size-lg="6" class="login-container">
-        <div class="login-box">
-          <ion-icon name="arrow-back-outline" class="back-icon"></ion-icon>
-          <h1>Log in</h1>
-          <p>Log in to get started!</p>
+<ion-content>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <ion-item>
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div
+      *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+    >
+      <small *ngIf="loginForm.get('email')?.errors?.['required']"
+        >E-mail é obrigatório.</small
+      >
+      <small *ngIf="loginForm.get('email')?.errors?.['email']"
+        >Formato de e-mail inválido.</small
+      >
+    </div>
 
-          <ion-item class="input-item">
-            <ion-label position="floating">Email</ion-label>
-            <ion-input
-              type="email"
-              placeholder="youremail@gmail.com"
-            ></ion-input>
-          </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <div
+      *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+    >
+      <small *ngIf="loginForm.get('password')?.errors?.['required']"
+        >Senha é obrigatória.</small
+      >
+      <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+        A senha deve ter no mínimo 6 caracteres.
+      </small>
+    </div>
 
-          <ion-item class="input-item">
-            <ion-label position="floating">Password</ion-label>
-            <ion-input
-              type="password"
-              placeholder="Enter your password"
-            ></ion-input>
-          </ion-item>
-
-          <ion-button expand="block" class="login-button">LOG IN</ion-button>
-
-          <div class="divider">
-            <div class="line"></div>
-            <p>OR</p>
-            <div class="line"></div>
-          </div>
-
-          <div class="social-buttons">
-            <ion-button class="social-button" fill="outline">
-              <ion-icon name="logo-google"></ion-icon>
-            </ion-button>
-            <ion-button class="social-button" fill="outline">
-              <ion-icon name="logo-apple"></ion-icon>
-            </ion-button>
-          </div>
-
-          <p class="signup-text">
-            Don’t have an account? <a href="#">Sign up</a>
-          </p>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">
+      Login
+    </ion-button>
+  </form>
 </ion-content>

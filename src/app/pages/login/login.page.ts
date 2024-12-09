@@ -1,31 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'; // Importar OnDestroy
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit, OnDestroy {
-  isDesktop: boolean = false;
+export class LoginPage {
+  loginForm: FormGroup;
 
-  constructor(private router: Router) {}
-
-  navigateToHome() {
-    this.router.navigate(['/home']);
+  constructor(private router: Router, private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
 
-  checkScreenSize() {
-    this.isDesktop = window.innerWidth >= 768;
-  }
-
-  ngOnInit() {
-    this.checkScreenSize();
-
-    window.addEventListener('resize', () => this.checkScreenSize());
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('resize', () => this.checkScreenSize());
+  onLogin() {
+    if (this.loginForm.valid) {
+      console.log('Login Successful:', this.loginForm.value);
+      this.router.navigate(['/home']);
+    } else {
+      console.log('Formulário inválido. Verifique os campos.');
+    }
   }
 }

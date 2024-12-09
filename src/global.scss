@@ -35,3 +35,22 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+@media (min-width: 1280px) {
+  ion-content {
+    max-width: 1280px;
+    margin: auto;
+    align-self: center;
+    position: relative;
+  }
+
+  .scroll-content {
+    overflow-y: auto;
+  }
+
+  ionic-selectable-modal {
+    ion-content {
+      max-width: 100% !important;
+    }
+  }
+}
