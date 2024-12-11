@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +8,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  loginForm: FormGroup;
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  constructor(private router: Router, private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+  constructor(private authService: AuthService, private router: Router) {}
+
+  login() {
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        // Redireciona para a página inicial após o login
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        this.errorMessage = err.error.message || 'Erro no login';
+      },
     });
-  }
-
-  onLogin() {
-    if (this.loginForm.valid) {
-      console.log('Login Successful:', this.loginForm.value);
-      this.router.navigate(['/home']);
-    } else {
-      console.log('Formulário inválido. Verifique os campos.');
-    }
   }
 }

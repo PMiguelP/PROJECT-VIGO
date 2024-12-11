@@ -7,12 +7,17 @@
         style="width: 24px; height: 24px; margin-right: 8px"
       />
       V.1.1
+      <!-- Exibe o nome do usuário -->
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div id="container">
+    <div
+      class="ball"
+      [ngClass]="{'green-ball': isAuthenticated, 'red-ball': !isAuthenticated}"
+    ></div>
     <strong>LAST DEEP OIL ESCAVATION 1231</strong>
     <ion-button (click)="navigateToLogin()">Ir para Login</ion-button>
     <ion-button (click)="navigateToSignUp()">Ir para SignUp</ion-button>
