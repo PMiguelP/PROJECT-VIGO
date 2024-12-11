@@ -25,3 +25,19 @@
 #container a {
   text-decoration: none;
 }
+
+.ball {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 20px auto;
+  transition: background-color 0.3s ease;
+}
+
+.green-ball {
+  background-color: green;
+}
+
+.red-ball {
+  background-color: red;
+}

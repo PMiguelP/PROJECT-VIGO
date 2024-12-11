@@ -1,6 +1,11 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+  HttpClientModule,
+} from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -13,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule, // Certifique-se de que este módulo está aqui
     ReactiveFormsModule,
     IonicModule.forRoot({ mode: 'ios' }),
     AppRoutingModule,
@@ -21,7 +27,10 @@ import { ReactiveFormsModule } from '@angular/forms';
       registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
