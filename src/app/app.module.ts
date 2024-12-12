@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule, // Certifique-se de que este módulo está aqui
+    HttpClientModule,
     ReactiveFormsModule,
     IonicModule.forRoot({ mode: 'ios' }),
     AppRoutingModule,

@@ -30,7 +30,6 @@ export class AuthService {
 
   initializeAuth() {
     this.checkAuth().subscribe({
-      next: () => console.log('Usuário autenticado ao iniciar a aplicação.'),
       error: () => {
         console.log('Usuário não autenticado ao iniciar a aplicação.');
         this.authenticatedSubject.next(false);
