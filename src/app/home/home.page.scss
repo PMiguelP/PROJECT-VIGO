@@ -41,3 +41,7 @@
 .red-ball {
   background-color: red;
 }
+
+ion-content {
+  --padding-bottom: 90px; /* Match footer height */
+}

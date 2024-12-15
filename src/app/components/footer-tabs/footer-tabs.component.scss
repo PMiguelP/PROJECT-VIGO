@@ -1,17 +1,22 @@
 .footer-toolbar {
-  --background: #1f1f1f; /* Fundo escuro */
-  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.3); /* Sombra superior */
-  border-top-left-radius: 16px; /* Cantos arredondados no topo */
+  --background: #1f1f1f; /* Dark background */
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.3);
+  border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  padding-bottom: 8px; /* Espaçamento interno */
+  padding-bottom: 0; /* Remove excessive padding */
+  position: fixed; /* Fix it at the bottom */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
 }
 
 .custom-tab-bar {
-  --background: transparent;
-  height: 120px; /* Altura aumentada */
-  padding-top: 15px; /* Espaçamento adicional no topo */
+  --background: #1f1f1f;
+  height: 70px; /* Reduce height to fit better */
   display: flex;
-  justify-content: space-evenly; /* Alinhamento uniforme */
+  justify-content: space-evenly;
+  align-items: center;
 
   ion-tab-button {
     display: flex;
@@ -23,34 +28,16 @@
     transition: color 0.3s, transform 0.2s ease-in-out;
 
     &.tab-selected {
-      color: #007aff; /* Destaque para o item ativo */
-    }
-
-    &:hover {
-      transform: scale(1.15); /* Zoom ao passar o mouse */
-      color: #ffffff;
+      color: #007aff;
     }
 
     ion-icon {
-      font-size: 32px; /* Ícones ainda maiores */
-      margin-bottom: 6px;
+      font-size: 28px; /* Slightly smaller icon size */
+      margin-bottom: 2px; /* Adjust spacing */
     }
 
     ion-label {
-      font-size: 15px; /* Texto levemente maior */
+      font-size: 12px; /* Adjust text size */
     }
-  }
-}
-
-.tab-button {
-  background: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
-  border-radius: 14px; /* Botões arredondados */
-  margin: 0 10px;
-  padding: 14px 16px; /* Ajuste de padding */
-  transition: all 0.3s ease;
-
-  &.tab-selected {
-    background: #007aff; /* Cor de destaque */
-    color: white;
   }
 }

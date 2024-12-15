@@ -1,0 +1,102 @@
+// Variáveis
+$primary-color: #2d8cff;
+$background-color: #000;
+$text-color: #fff;
+$secondary-color: #757575;
+
+ion-content {
+  --background: $background-color;
+}
+
+.form-container {
+  padding: 20px;
+  text-align: center;
+
+  ion-item {
+    --background: transparent;
+    --border-radius: 10px;
+    color: $text-color;
+    margin: 10px 0;
+
+    ion-icon {
+      color: $secondary-color;
+    }
+
+    ion-input {
+      color: $text-color;
+    }
+  }
+
+  .terms {
+    font-size: 0.9em;
+    color: $secondary-color;
+    text-align: left;
+    display: flex;
+    align-items: center;
+
+    a {
+      color: $primary-color;
+      text-decoration: underline;
+    }
+  }
+
+  .btn-signin {
+    --background: $primary-color;
+    --border-radius: 10px;
+    color: $text-color;
+    font-weight: bold;
+  }
+
+  .divider {
+    margin: 20px 0;
+    color: $secondary-color;
+    font-size: 0.9em;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: $secondary-color;
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+  }
+
+  .social-login {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    .social-btn {
+      --background: #333;
+      --border-radius: 50%;
+      width: 50px;
+      height: 50px;
+
+      ion-icon {
+        font-size: 1.5em;
+        color: $text-color;
+      }
+    }
+  }
+
+  .login-link {
+    color: $secondary-color;
+    font-size: 0.9em;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+    }
+  }
+}

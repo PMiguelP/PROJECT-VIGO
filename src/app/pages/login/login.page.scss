@@ -1,20 +1,168 @@
+// Variables
+$primary-color: #2d8cff;
+$background-color: #000;
+$text-color: #fff;
+$secondary-color: #757575;
+$input-border-color: #444;
+
+// General Page Style
 ion-content {
-  --padding-start: 20px;
-  --padding-end: 20px;
-  --padding-top: 20px;
+  --background: $background-color;
+  color: $text-color;
+}
 
-  form {
+// Form Container
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 30px 20px;
+
+  // Input Wrapper
+  .input-wrapper {
+    width: 100%;
+    margin-bottom: 15px;
+
+    .input-label {
+      color: $secondary-color;
+      font-size: 0.9em;
+      font-weight: 600;
+      margin-bottom: 5px; // Space between label and input
+      display: block; // Ensures label appears above input
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: transparent;
+      border: 1px solid $input-border-color;
+      border-radius: 50px;
+      padding: 8px 15px;
+
+      .input-icon {
+        color: $secondary-color;
+        font-size: 1.3em;
+        margin-right: 10px;
+      }
+
+      ion-input {
+        color: $text-color;
+        flex: 1;
+        font-size: 1em;
+
+        &::placeholder {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  // Forgot Password
+  .forgot-password {
+    font-size: 0.9em;
+    color: $secondary-color;
+    margin: 20px 0;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+    }
+  }
+
+  // Login Button
+  .btn-login {
+    background: $primary-color;
+    border-radius: 10px;
+    color: $text-color;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+    height: 55px;
+    margin: 20px 0;
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    justify-content: center;
   }
 
-  ion-button {
-    margin-top: 20px;
+  // Optional Section Divider
+  .optional-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+
+    .line {
+      flex: 1;
+      height: 1px;
+      background-color: $secondary-color;
+    }
+
+    .or-text {
+      color: $secondary-color;
+      margin: 0 15px;
+      font-size: 1em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
 
-  small {
-    color: red;
-    font-size: 12px;
+  // Social Login Buttons
+  .social-login {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    margin: 30px 0;
+
+    .social-btn {
+      flex: 1;
+      height: 60px;
+      background: #333;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ion-icon {
+        color: $text-color;
+        font-size: 1.8em;
+      }
+    }
+  }
+
+  // Title
+  .login-title {
+    text-align: center;
+    color: $text-color;
+    font-size: 2.2em;
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+
+  // Sign-up Link
+  .signup-link {
+    color: $secondary-color;
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: auto;
+
+    a {
+      color: $primary-color;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
+  // Back Arrow
+  .back-arrow {
+    position: absolute;
+    top: 40px; // Adjust this value for alignment
+    left: 20px; // Positions the arrow towards the left
+    color: $text-color; // White color
+    font-size: 1.8em; // Size of the arrow
+    cursor: pointer; // Indicates it's clickable (optional)
   }
 }

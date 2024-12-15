@@ -1,59 +1,76 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Registrar</ion-title>
+    <ion-title>Sign up</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="signup-page">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <!-- Campo para o nome -->
-    <ion-item>
-      <ion-label position="floating">Nome</ion-label>
-      <ion-input formControlName="name" type="text" required></ion-input>
-    </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
-    >
-      Nome é obrigatório.
-    </ion-text>
+    <div class="form-container">
+      <!-- Nome -->
+      <ion-item>
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-input
+          formControlName="name"
+          type="text"
+          placeholder="Type your name"
+        >
+        </ion-input>
+      </ion-item>
 
-    <!-- Campo para o email -->
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input formControlName="email" type="email" required></ion-input>
-    </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
-    >
-      Email inválido.
-    </ion-text>
+      <!-- Email -->
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input
+          formControlName="email"
+          type="email"
+          placeholder="Type your e-mail"
+        >
+        </ion-input>
+      </ion-item>
 
-    <!-- Campo para a senha -->
-    <ion-item>
-      <ion-label position="floating">Senha</ion-label>
-      <ion-input
-        formControlName="password"
-        type="password"
-        required
-      ></ion-input>
-    </ion-item>
-    <ion-text
-      color="danger"
-      *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-    >
-      Senha deve ter no mínimo 6 caracteres.
-    </ion-text>
+      <!-- Password -->
+      <ion-item>
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input
+          formControlName="password"
+          type="password"
+          placeholder="Create a password"
+        >
+        </ion-input>
+      </ion-item>
 
-    <!-- Botão para registrar -->
-    <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">
-      Registrar
-    </ion-button>
+      <!-- Checkbox -->
+      <ion-item lines="none" class="terms">
+        <ion-checkbox slot="start" checked></ion-checkbox>
+        <label>I have read the <a href="#">Terms of Service</a></label>
+      </ion-item>
 
-    <!-- Exibir mensagem de erro -->
-    <ion-text color="danger" *ngIf="errorMessage">
-      {{ errorMessage }}
-    </ion-text>
+      <!-- Botão Sign in -->
+      <ion-button
+        expand="block"
+        type="submit"
+        class="btn-signin"
+        [disabled]="registerForm.invalid"
+      >
+        Sign in
+      </ion-button>
+
+      <div class="divider">OR</div>
+
+      <!-- Botões de Social Login -->
+      <div class="social-login">
+        <ion-button fill="clear" class="social-btn">
+          <ion-icon name="logo-google"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="social-btn">
+          <ion-icon name="logo-apple"></ion-icon>
+        </ion-button>
+      </div>
+
+      <p class="login-link">
+        Already have an account? <a href="/login">Login</a>
+      </p>
+    </div>
   </form>
 </ion-content>

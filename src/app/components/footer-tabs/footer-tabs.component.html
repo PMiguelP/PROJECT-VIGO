@@ -4,26 +4,38 @@
       <ion-tab-bar slot="bottom" class="custom-tab-bar">
         <ion-tab-button
           tab="home"
-          (click)="navigateToHome()"
-          class="tab-button"
+          [class.tab-selected]="selectedTab === 'home'"
+          (click)="selectTab('home')"
         >
-          <ion-icon name="home-sharp" class="tab-icon"></ion-icon>
+          <ion-icon name="home"></ion-icon>
           <ion-label>Home</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="wallet" class="tab-button">
-          <ion-icon name="bag-sharp" class="tab-icon"></ion-icon>
-          <ion-label>Wallet</ion-label>
+        <ion-tab-button
+          tab="trips"
+          [class.tab-selected]="selectedTab === 'trips'"
+          (click)="selectTab('trips')"
+        >
+          <ion-icon name="bag"></ion-icon>
+          <ion-label>Trips</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="guide" class="tab-button">
-          <ion-icon name="compass-sharp" class="tab-icon"></ion-icon>
-          <ion-label>Guide</ion-label>
+        <ion-tab-button
+          tab="itinerary"
+          [class.tab-selected]="selectedTab === 'itinerary'"
+          (click)="selectTab('itinerary')"
+        >
+          <ion-icon name="compass"></ion-icon>
+          <ion-label>Itinerary</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="chart" class="tab-button">
-          <ion-icon name="analytics-sharp" class="tab-icon"></ion-icon>
-          <ion-label>Chart</ion-label>
+        <ion-tab-button
+          tab="profile"
+          [class.tab-selected]="selectedTab === 'profile'"
+          (click)="selectTab('profile')"
+        >
+          <ion-icon name="person"></ion-icon>
+          <ion-label>Profile</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
