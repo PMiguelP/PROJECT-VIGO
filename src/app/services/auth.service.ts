@@ -106,9 +106,8 @@ export class AuthService {
   refreshToken(): Observable<string> {
     if (this.isRefreshing) {
       return this.refreshTokenSubject.pipe(
-        filter((token) => token !== null),
-        take(1),
-        switchMap((accessToken) => of(accessToken!))
+        filter((token): token is string => token !== null),
+        take(1)
       );
     }
 
@@ -126,12 +125,14 @@ export class AuthService {
           this.isRefreshing = false;
           if (response.accessToken) {
             this.refreshTokenSubject.next(response.accessToken);
+            this.checkAuth().subscribe();
           }
         }),
         map((response) => response.accessToken!),
         catchError((error) => {
           this.isRefreshing = false;
-          this.router.navigate(['/login']);
+          this.authenticatedSubject.next(false);
+          this.userSubject.next(null);
           return throwError(
             () => new Error('Session expired. Please log in again.')
           );

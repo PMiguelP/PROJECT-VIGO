@@ -6,8 +6,8 @@ import {
   HttpRequest,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { Observable, throwError, from } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -18,27 +18,43 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    if (
+      req.url.includes('/auth/login') ||
+      req.url.includes('/auth/register') ||
+      req.url.includes('/auth/refresh')
+    ) {
+      return next.handle(req);
+    }
+
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 && !req.url.includes('/auth/login')) {
-          return this.authService.refreshToken().pipe(
-            switchMap((newAccessToken) => {
-              const clonedRequest = req.clone({
-                setHeaders: {
-                  Authorization: `Bearer ${newAccessToken}`,
-                },
-              });
-              return next.handle(clonedRequest);
-            }),
-            catchError((refreshError) => {
-              this.authService.logout();
-              return throwError(() => refreshError);
-            })
-          );
+        if (error.status === 401) {
+          return from(this.handleUnauthorizedError(req, next));
         }
-
         return throwError(() => error);
       })
     );
+  }
+
+  private async handleUnauthorizedError(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Promise<HttpEvent<any>> {
+    try {
+      const newAccessToken = await firstValueFrom(
+        this.authService.refreshToken()
+      );
+
+      const modifiedReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+      });
+
+      return await firstValueFrom(next.handle(modifiedReq));
+    } catch (refreshError) {
+      this.authService.logout();
+      throw refreshError;
+    }
   }
 }
