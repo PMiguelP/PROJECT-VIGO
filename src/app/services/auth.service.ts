@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { catchError, tap, switchMap, filter, take, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 interface User {
   id: number;
@@ -21,8 +22,6 @@ interface AuthResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private BASE_URL = 'http://localhost:3000';
-
   private authenticatedSubject = new BehaviorSubject<boolean>(false);
   authenticated$ = this.authenticatedSubject.asObservable();
 
@@ -36,7 +35,7 @@ export class AuthService {
 
   checkAuth(): Observable<boolean> {
     return this.http
-      .get<AuthResponse>(`${this.BASE_URL}/auth/check`, {
+      .get<AuthResponse>(`${environment.apiUrl}/auth/check`, {
         withCredentials: true,
       })
       .pipe(
@@ -60,7 +59,7 @@ export class AuthService {
   login(email: string, password: string): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(
-        `${this.BASE_URL}/auth/login`,
+        `${environment.apiUrl}/auth/login`,
         { email, password },
         { withCredentials: true }
       )
@@ -80,7 +79,7 @@ export class AuthService {
   ): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(
-        `${this.BASE_URL}/auth/register`,
+        `${environment.apiUrl}/auth/register`,
         { email, password, name },
         { withCredentials: true }
       )
@@ -92,7 +91,7 @@ export class AuthService {
 
   logout(): Observable<any> {
     return this.http
-      .post(`${this.BASE_URL}/auth/logout`, {}, { withCredentials: true })
+      .post(`${environment.apiUrl}/auth/logout`, {}, { withCredentials: true })
       .pipe(
         tap(() => {
           this.authenticatedSubject.next(false);
@@ -116,7 +115,7 @@ export class AuthService {
 
     return this.http
       .post<AuthResponse>(
-        `${this.BASE_URL}/auth/refresh`,
+        `${environment.apiUrl}/auth/refresh`,
         {},
         { withCredentials: true }
       )
