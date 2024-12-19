@@ -29,7 +29,21 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () =>
+      import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'set-profile-picture',
+    loadChildren: () =>
+      import('./pages/set-profile-picture/set-profile-picture.module').then(
+        (m) => m.SetProfilePicturePageModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
   },
 ];
 

@@ -3,7 +3,6 @@
     <ion-tabs>
       <ion-tab-bar slot="bottom" class="custom-tab-bar">
         <ion-tab-button
-          tab="home"
           [class.tab-selected]="selectedTab === 'home'"
           (click)="selectTab('home')"
         >
@@ -12,7 +11,6 @@
         </ion-tab-button>
 
         <ion-tab-button
-          tab="trips"
           [class.tab-selected]="selectedTab === 'trips'"
           (click)="selectTab('trips')"
         >
@@ -21,7 +19,6 @@
         </ion-tab-button>
 
         <ion-tab-button
-          tab="itinerary"
           [class.tab-selected]="selectedTab === 'itinerary'"
           (click)="selectTab('itinerary')"
         >
@@ -30,7 +27,6 @@
         </ion-tab-button>
 
         <ion-tab-button
-          tab="profile"
           [class.tab-selected]="selectedTab === 'profile'"
           (click)="selectTab('profile')"
         >
