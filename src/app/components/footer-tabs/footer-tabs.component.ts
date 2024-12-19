@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-footer-tabs',
@@ -7,32 +7,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer-tabs.component.scss'],
 })
 export class FooterTabsComponent implements OnInit {
-  selectedTab: string = 'home'; // Default active tab
+  selectedTab: string = 'home'; // Aba padrão
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Detecta mudanças de rota para atualizar a aba selecionada
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const currentRoute = event.urlAfterRedirects.split('/')[1]; // Pega a rota atual
+        this.selectedTab = currentRoute || 'home'; // Atualiza a aba selecionada
+      }
+    });
+  }
 
-  // Method to handle tab selection
+  // Método para navegar para uma aba
   selectTab(tabName: string) {
-    this.selectedTab = tabName;
-
-    // Add navigation if needed
-    switch (tabName) {
-      case 'home':
-        this.router.navigate(['/home']);
-        break;
-      case 'trips':
-        this.router.navigate(['/trips']);
-        break;
-      case 'itinerary':
-        this.router.navigate(['/itinerary']);
-        break;
-      case 'profile':
-        this.router.navigate(['/profile']);
-        break;
-      default:
-        break;
-    }
+    this.router.navigate([`/${tabName}`]);
   }
 }

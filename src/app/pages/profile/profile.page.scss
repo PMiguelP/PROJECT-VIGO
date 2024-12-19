@@ -1,0 +1,58 @@
+.profile-container {
+  text-align: center;
+  position: relative;
+}
+
+.profile-picture {
+  position: relative;
+  display: inline-block;
+}
+
+.round-profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #3880ff;
+  background-color: white;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.edit-buttons {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(-50%);
+  padding: 0 10px;
+}
+
+.cancel-button,
+.confirm-button {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.version-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin-bottom: 40px; /* Slight space above the footer tabs */
+  font-size: 14px;
+  color: #555;
+}

@@ -5,11 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-
-import { FooterTabsComponent } from '../components/footer-tabs/footer-tabs.component';
+import { SharedModule } from '../components/components.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
-  declarations: [HomePage, FooterTabsComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HomePageRoutingModule,
+    SharedModule,
+  ],
+  declarations: [HomePage],
 })
 export class HomePageModule {}
