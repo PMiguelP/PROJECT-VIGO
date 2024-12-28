@@ -1,0 +1,21 @@
+ion-content {
+    --background: #000;
+}
+
+.icon-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.no-events {
+    color: white;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+ion-fab-button {
+    --background: #3b82f6;
+    /* Azul */
+    --color: #ffffff;
+}

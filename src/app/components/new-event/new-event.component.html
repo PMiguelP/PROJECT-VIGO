@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="black">
+    <ion-title class="ion-text-center">New Event</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-margin custom-card">
+    <ion-card-content>
+      <!-- Event Name -->
+      <ion-item lines="full" class="ion-margin-bottom">
+        <ion-label position="floating">Event Name</ion-label>
+        <ion-input placeholder="Enter a memorable name for your event" class="custom-input">
+        </ion-input>
+      </ion-item>
+
+      <!-- Description -->
+      <ion-item lines="full" class="ion-margin-bottom">
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea placeholder="What's this event about?" rows="4" class="custom-textarea">
+        </ion-textarea>
+      </ion-item>
+
+      <div class="ion-margin-top">
+        <ion-button expand="block" color="success" class="custom-button">
+          Next
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
