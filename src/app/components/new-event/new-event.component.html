@@ -1,36 +1,80 @@
-<ion-header>
-  <ion-toolbar color="black">
-    <ion-title class="ion-text-center">New Event</ion-title>
+<ion-header mode="ios">
+  <ion-toolbar color="black" mode="ios">
+    <ion-title class="ion-text-center" mode="ios">New Event</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">
-        <ion-icon name="close-outline" size="large"></ion-icon>
+      <ion-button (click)="closeModal()" mode="ios">
+        <ion-icon name="close-outline" size="large" mode="ios"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card class="ion-margin custom-card">
-    <ion-card-content>
-      <!-- Event Name -->
-      <ion-item lines="full" class="ion-margin-bottom">
-        <ion-label position="floating">Event Name</ion-label>
-        <ion-input placeholder="Enter a memorable name for your event" class="custom-input">
-        </ion-input>
-      </ion-item>
+<ion-content class="ion-padding" mode="ios">
+  <form (ngSubmit)="saveEvent()" #eventForm="ngForm">
+    <!-- Image -->
+    <ion-label class="section-title" mode="ios">Image</ion-label>
+    <ion-card class="ion-margin custom-card" mode="ios">
+      <ion-card-content>
+        <input type="file" (change)="onImageSelected($event)" accept="image/*" hidden #fileInput>
+        <img *ngIf="event.image" [src]="event.image" alt="Event Image" class="event-image-preview"
+          (click)="fileInput.click()">
+        <img *ngIf="!event.image" src="https://via.placeholder.com/150" alt="Placeholder Image"
+          class="event-image-preview" (click)="fileInput.click()">
+      </ion-card-content>
+    </ion-card>
 
-      <!-- Description -->
-      <ion-item lines="full" class="ion-margin-bottom">
-        <ion-label position="floating">Description</ion-label>
-        <ion-textarea placeholder="What's this event about?" rows="4" class="custom-textarea">
-        </ion-textarea>
-      </ion-item>
+    <!-- Event Name -->
+    <ion-label class="section-title" mode="ios">Event Name</ion-label>
+    <ion-card class="ion-margin custom-card" mode="ios">
+      <ion-card-content>
+        <ion-item lines="full" class="ion-margin-bottom" mode="ios">
+          <ion-input [(ngModel)]="event.title" name="title" placeholder="Enter a memorable name for your event"
+            class="custom-input" required #title="ngModel">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error-message">
+          <ion-text color="danger">Event Name is required.</ion-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
-      <div class="ion-margin-top">
-        <ion-button expand="block" color="success" class="custom-button">
-          Next
-        </ion-button>
-      </div>
-    </ion-card-content>
-  </ion-card>
+    <!-- Description -->
+    <ion-label class="section-title" mode="ios">Description</ion-label>
+    <ion-card class="ion-margin custom-card" mode="ios">
+      <ion-card-content>
+        <ion-item lines="full" class="ion-margin-bottom" mode="ios">
+          <ion-textarea [(ngModel)]="event.description" name="description" placeholder="What's this event about?"
+            rows="4" class="custom-textarea" required #description="ngModel">
+          </ion-textarea>
+        </ion-item>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-message">
+          <ion-text color="danger">Description is required.</ion-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Location -->
+    <ion-label class="section-title" mode="ios">Location</ion-label>
+    <ion-card class="ion-margin custom-card" mode="ios">
+      <ion-card-content>
+        <ion-button expand="block" color="primary" mode="ios" (click)="selectLocation('New York')">Insert
+          Location</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Itinerary -->
+    <ion-label class="section-title" mode="ios">Itinerary</ion-label>
+    <ion-card class="ion-margin custom-card" mode="ios">
+      <ion-card-content>
+        <ion-button expand="block" color="primary" mode="ios" (click)="selectItinerary('schedule')">Insert
+          Itinerary</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="ion-margin-top">
+      <ion-button expand="block" color="success" type="submit" mode="ios" [disabled]="eventForm.invalid">
+        Save Event
+      </ion-button>
+    </div>
+  </form>
 </ion-content>

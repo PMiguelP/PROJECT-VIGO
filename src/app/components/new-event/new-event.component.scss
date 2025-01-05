@@ -3,10 +3,27 @@
     margin-top: 30px;
 }
 
-.location-button {
-    margin-top: 15px;
+.section-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    color: #fff;
+    text-align: center;
+    display: block;
+    width: 100%;
 }
 
-.button-group ion-button {
+.error-message {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.event-image-preview {
+    width: 200px;
+    height: 200px;
     margin-top: 10px;
+    border-radius: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

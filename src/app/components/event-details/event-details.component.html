@@ -1,0 +1,29 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-title class="ion-text-center" mode="ios">{{ event.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" mode="ios">
+        <ion-icon name="close-outline" size="large" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" mode="ios">
+  <ion-card class="ion-margin custom-card" mode="ios">
+    <ion-card-content>
+      <p>{{ event.description }}</p>
+      <p><strong>Location:</strong> {{ event.location }}</p>
+      <p><strong>Date:</strong> {{ event.date }}</p>
+      <p><strong>Participants:</strong></p>
+      <ion-list mode="ios">
+        <ion-item *ngFor="let participant of event.participants" mode="ios">
+          <ion-avatar slot="start" mode="ios">
+            <img [src]="participant.avatar" />
+          </ion-avatar>
+          <ion-label mode="ios">{{ participant.name }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

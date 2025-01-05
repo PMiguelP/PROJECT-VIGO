@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { EventsPageRoutingModule } from './events-routing.module';
 
 import { EventsPage } from './events.page';
-import { NewEventComponent } from '../../components/new-event/new-event.component'; // Importe o componente aqui
+import { NewEventComponent } from '../../components/new-event/new-event.component';
+import { EventDetailsComponent } from '../../components/event-details/event-details.component'; // Importe o componente aqui
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { NewEventComponent } from '../../components/new-event/new-event.componen
   ],
   declarations: [
     EventsPage,
-    NewEventComponent // Adicione o componente aqui
+    NewEventComponent,
+    EventDetailsComponent // Adicione o componente aqui
   ]
 })
 export class EventsPageModule { }
