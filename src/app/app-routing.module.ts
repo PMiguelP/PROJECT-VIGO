@@ -42,33 +42,54 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: '**',
-    redirectTo: 'home',
-  },  {
     path: 'checklist',
-    loadChildren: () => import('./pages/checklist/checklist.module').then( m => m.ChecklistPageModule)
+    loadChildren: () =>
+      import('./pages/checklist/checklist.module').then(
+        (m) => m.ChecklistPageModule
+      ),
   },
   {
     path: 'itinerary-form',
-    loadChildren: () => import('./pages/itinerary-form/itinerary-form.module').then( m => m.ItineraryFormPageModule)
+    loadChildren: () =>
+      import('./pages/itinerary-form/itinerary-form.module').then(
+        (m) => m.ItineraryFormPageModule
+      ),
   },
   {
     path: 'my-itinerary',
-    loadChildren: () => import('./pages/my-itinerary/my-itinerary.module').then( m => m.MyItineraryPageModule)
+    loadChildren: () =>
+      import('./pages/my-itinerary/my-itinerary.module').then(
+        (m) => m.MyItineraryPageModule
+      ),
+  },
+  {
+    path: 'events',
+    loadChildren: () =>
+      import('./pages/events/events.module').then((m) => m.EventsPageModule),
   },
   {
     path: 'schedule',
-    loadChildren: () => import('./pages/schedule/schedule.module').then( m => m.SchedulePageModule)
+    loadChildren: () =>
+      import('./pages/schedule/schedule.module').then((m) => m.SchedulePageModule),
   },
   {
     path: 'transportation-arrangement',
-    loadChildren: () => import('./pages/transportation-arrangement/transportation-arrangement.module').then( m => m.TransportationArrangementPageModule)
+    loadChildren: () =>
+      import(
+        './pages/transportation-arrangement/transportation-arrangement.module'
+      ).then((m) => m.TransportationArrangementPageModule),
   },
   {
     path: 'travel-arrangement',
-    loadChildren: () => import('./pages/travel-arrangement/travel-arrangement.module').then( m => m.TravelArrangementPageModule)
+    loadChildren: () =>
+      import('./pages/travel-arrangement/travel-arrangement.module').then(
+        (m) => m.TravelArrangementPageModule
+      ),
   },
-
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({

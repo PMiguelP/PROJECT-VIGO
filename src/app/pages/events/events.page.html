@@ -1,0 +1,40 @@
+`<ion-header>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/"></ion-back-button>
+  </ion-buttons>
+  <ion-title style="font-size:large;">My Events</ion-title>
+</ion-header>
+
+<ion-content class="ion-text-center ion-padding" [fullscreen]="true">
+  <div *ngIf="hasData; else emptyTemplate">
+    <div class="events-list">
+      <div *ngFor="let event of eventsData" class="event-card">
+        <ion-card (click)="openEventDetails(event)">
+          <ion-card-header>
+            <ion-card-title>{{ event.title }}</ion-card-title>
+            <ion-button fill="clear" color="primary" class="copy-link-button"
+              (click)="copyLink(event); $event.stopPropagation()">
+              <ion-icon name="copy-outline"></ion-icon>
+            </ion-button>
+          </ion-card-header>
+          <img [src]="event.image || 'https://via.placeholder.com/600x300'" [alt]="event.title" class="event-image" />
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyTemplate>
+    <div class="empty-state">
+      <div class="icon-container">
+        <img src="https://cdn-icons-png.flaticon.com/512/14759/14759714.png" alt="party" class="party" />
+      </div>
+      <h3 class="no-events">No events in here</h3>
+    </div>
+  </ng-template>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="openNewEventModal()" style="--background: #0373F3;">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
