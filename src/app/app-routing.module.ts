@@ -31,7 +31,7 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard], // Protegido por AuthGuard
   },
   {
     path: 'set-profile-picture',
@@ -39,7 +39,12 @@ const routes: Routes = [
       import('./pages/set-profile-picture/set-profile-picture.module').then(
         (m) => m.SetProfilePicturePageModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard], // Protegido por AuthGuard
+  },
+  {
+    path: 'events',
+    loadChildren: () =>
+      import('./pages/events/events.module').then((m) => m.EventsPageModule),
   },
   {
     path: '**',

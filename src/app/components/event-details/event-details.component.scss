@@ -1,0 +1,56 @@
+.custom-item {
+    --background: #000000;
+    --border-radius: 18px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --border-color: #888888;
+    --border-width: 1px;
+    margin-bottom: 16px;
+}
+
+.section {
+    display: block;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 6px;
+}
+
+.custom-input,
+.custom-textarea {
+    --padding-start: 0;
+    --padding-end: 0;
+    color: white;
+}
+
+.event-image-preview {
+    width: 300px;
+    height: 200px;
+    margin-top: 10px;
+    border-radius: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.clickable-text {
+    cursor: pointer;
+    text-decoration: underline;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error-message {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.custom-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.section-title {
+    text-align: center;
+}
