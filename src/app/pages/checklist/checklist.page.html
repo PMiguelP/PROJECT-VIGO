@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Cabeçalho -->
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div class="header-container">
+        <ion-button fill="clear" class="back-button">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-title size="large">CheckList</ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)" class="custom-segment">
+    <ion-segment-button value="todo">
+      <ion-label>To Do</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="done">
+      <ion-label>Done</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="checklist-content">
+    <div class="tasks-container">
+      <ion-item *ngFor="let task of filteredTasks" class="task-item">
+        <div class="task-content">
+          <div class="ball"></div>
+          <ion-label (click)="moveTask(task)" class="task-label">
+            {{ task.title }}
+          </ion-label>
+          <ion-label class="task-status">
+            {{ task.status }}
+          </ion-label>
+        </div>
+      </ion-item>
+    </div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button class="add-button">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

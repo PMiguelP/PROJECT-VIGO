@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div class="header-container">
+        <ion-button fill="clear" class="back-button" slot="start" color="white">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-title size="large" color="white">My Itinerary</ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="hasData; else emptyTemplate" class="trips-container">
+    <ion-list>
+      <ion-item *ngFor="let trip of tripsData" class="trip-item" lines="none" detail="false">
+        <div class="trip-content">
+          <div class="trip-info">
+            <img [src]="trip.image" [alt]="trip.title" class="trip-image" />
+            <h2>{{ trip.title }}</h2>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" class="view-button">
+      View specific itinerary
+    </ion-button>
+  </div>
+
+  <ng-template #emptyTemplate>
+    <div class="empty-container">
+      <img src="assets/images/globe-with-plane.png" alt="Globe illustration" class="globe-img" />
+      <p class="empty-text">
+        Nothing to see here, start now your adventure by adding a trip
+      </p>
+      <ion-fab-button (click)="addTrip()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </div>
+  </ng-template>
+</ion-content>

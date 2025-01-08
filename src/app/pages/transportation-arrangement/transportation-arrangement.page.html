@@ -1,0 +1,64 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div class="header-container">
+        <ion-button fill="clear" class="back-button">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-title size="large">Travel Plan</ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="content-container">
+    <div class="section">
+      <h2>Your Tickets</h2>
+      <ion-list lines="none">
+        <ion-item *ngFor="let ticket of tickets" class="ticket-item">
+          <ion-label>{{ ticket }}.pdf</ion-label>
+          <img src="assets/images/pdf-icon.png" alt="PDF Icon" />
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" class="add-ticket-btn" (click)="addTicket()">
+        Add Ticket
+      </ion-button>
+    </div>
+
+    <div class="section">
+      <h2>Flights</h2>
+      <div class="flight-cards">
+        <div class="flight-card" *ngFor="let flight of flightData">
+          <div class="flight-card-content">
+            <div class="country-info">
+              <div class="flag-icon flag-icon-{{ flight.countryCode }}"></div>
+              <div class="country-code">{{ flight.countryCode }}</div>
+              <div class="time">{{ flight.time }}</div>
+              <div class="flight-class">
+                <ion-icon name="star" color="primary"></ion-icon>
+                <span>First Class</span>
+              </div>
+            </div>
+          </div>
+
+          <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+
+          <div class="flight-card-content return">
+            <div class="country-info">
+              <div class="flag-icon" [class]="'flag-icon-' + flight.returnCountryCode"></div>
+              <div class="country-code">{{ flight.returnCountryCode }}</div>
+              <div class="time">{{ flight.returnTime }}</div>
+              <div class="flight-class">
+                <ion-icon name="star" color="primary"></ion-icon>
+                <span>First Class</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="determine-plan-text" (click)="determinePlan()">
+        Determine the plan
+      </p>
+    </div>
+  </div>
+</ion-content>

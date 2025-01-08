@@ -1,0 +1,45 @@
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <div class="header-container">
+      <ion-button fill="clear" class="back-button" slot="start">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-title size="large">Add itinerary</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="days-navigation">
+    <div class="day-item" *ngFor="let day of days" [class.active]="selectedDay === day.value"
+      (click)="selectDay(day.value)">
+      <span class="day-label">{{ day.label }}</span>
+      <span class="date-label">{{ day.date }}</span>
+    </div>
+  </div>
+
+  <div class="timeline-container">
+    <div class="timeline-item" *ngFor="let item of getActivitiesForSelectedDay()">
+      <div class="time-column">
+        <ion-icon name="time-outline"></ion-icon>
+        <span class="time">{{ item.time }}</span>
+      </div>
+      <div class="activity-content">
+        <span class="activity-title">{{ item.title }}</span>
+        <div class="activity-divider">
+          <ion-icon [name]="item.icon" class="activity-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-button expand="block" class="add-activity-button" (click)="addActivity()">
+    Add activity
+  </ion-button>
+
+  <div class="button-container">
+    <ion-button expand="block" class="next-step-button" (click)="nextStep()">
+      Next step
+    </ion-button>
+  </div>
+</ion-content>

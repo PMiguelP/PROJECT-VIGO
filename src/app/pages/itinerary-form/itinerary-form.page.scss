@@ -1,0 +1,160 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.back-button {
+    margin-right: 10px;
+    font-size: 20px;
+    --color: #fff;
+}
+
+ion-title {
+    flex: 1;
+    text-align: center;
+    font-size: 32px;
+    color: #fff;
+}
+
+.custom-tab-bar {
+    --background: #ffffff;
+    --color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.day-item {
+    padding: 10px;
+}
+
+.days-navigation {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.day-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 0 10px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #3880ff;
+        transform: scaleX(0);
+        transition: transform 0.5s ease;
+    }
+
+    &.active::after {
+        transform: scaleX(1);
+    }
+}
+
+.day-label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #fff;
+}
+
+.date-label {
+    font-size: 14px;
+    color: #B1B1B1;
+}
+
+.itinerary-list {
+    padding: 20px;
+}
+
+.itinerary-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.time {
+    width: 60px;
+    font-size: 20px;
+    color: #fff;
+}
+
+
+.timeline-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: #000;
+    margin: 0 15px;
+}
+
+.itinerary-item:first-child {
+    .timeline-dot {
+        background: #3880ff;
+        border-color: #3880ff;
+    }
+}
+
+.timeline-line {
+    position: absolute;
+    left: 85px;
+    top: 20px;
+    width: 2px;
+    height: calc(100% + 12px);
+    background: #fff;
+}
+
+.itinerary-item:last-child .timeline-line {
+    display: none;
+}
+
+.content {
+    flex: 1;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #B1B1B1;
+}
+
+.weather-icon {
+    position: absolute;
+    top: 5px;
+    right: 16px;
+    font-size: 20px;
+}
+
+.checklist-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin: 20px;
+    text-align: center;
+}
+
+.add-button {
+    --background: #3880ff;
+    --border-radius: 50%;
+    width: 56px;
+    height: 56px;
+}

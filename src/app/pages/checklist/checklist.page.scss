@@ -1,0 +1,85 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.back-button {
+    margin-right: 10px;
+    font-size: 20px;
+    --color: #fff;
+}
+
+ion-title {
+    flex: 1;
+    text-align: center;
+    font-size: 32px;
+    color: #fff;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.custom-segment {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    --background: transparent;
+    display: flex;
+    justify-content: center;
+
+    ion-segment-button {
+        --background-checked: #ffffff;
+        --color: #ffffff;
+        --color-checked: #000000;
+        --indicator-color: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 18px;
+        padding: 10px 16px;
+        flex: 1;
+
+    }
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.ball {
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.task-content {
+    justify-content: space-between;
+}
+
+.task-status {
+    color: #666666;
+    font-size: 16px;
+    text-align: right;
+}
+
+.task-label {
+    flex: 1;
+    text-align: left;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.add-button {
+    --background: #000000;
+    --border-radius: 50%;
+    --color: #666666;
+    width: 64px;
+    height: 64px;
+}
