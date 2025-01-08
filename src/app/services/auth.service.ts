@@ -5,7 +5,7 @@ import { catchError, tap, switchMap, filter, take, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -40,13 +40,26 @@ export class AuthService {
       })
       .pipe(
         tap((response) => {
-          this.authenticatedSubject.next(response.isAuthenticated || false);
-          this.userSubject.next(response.user || null);
+          const isAuthenticated = response.isAuthenticated || false;
+          this.authenticatedSubject.next(isAuthenticated);
+
+          if (isAuthenticated) {
+            this.userSubject.next(response.user || null);
+
+            // Only redirect to home if current page is login
+            if (this.router.url === '/login') {
+              this.router.navigate(['/home']);
+            }
+          } else {
+            this.userSubject.next(null);
+            this.router.navigate(['/login']);
+          }
         }),
         map((response) => response.isAuthenticated || false),
         catchError((error) => {
           this.authenticatedSubject.next(false);
           this.userSubject.next(null);
+          this.router.navigate(['/login']);
           return of(false);
         })
       );

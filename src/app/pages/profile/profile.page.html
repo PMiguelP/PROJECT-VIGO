@@ -1,13 +1,92 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div *ngIf="user">
+    <!-- Profile Section -->
+    <div class="profile-container">
+      <div class="profile-picture">
+        <!-- Profile Picture -->
+        <img
+          [src]="placeholderImage"
+          alt="Profile"
+          class="round-profile-img"
+          (click)="onProfilePictureClick()"
+        />
+
+        <!-- Pencil Icon -->
+        <ion-icon
+          *ngIf="!isEditing"
+          name="create-outline"
+          class="edit-icon"
+          (click)="toggleEditMode()"
+        ></ion-icon>
+
+        <!-- Confirm and Cancel Buttons -->
+        <div *ngIf="isEditing" class="edit-buttons">
+          <ion-button
+            size="small"
+            color="medium"
+            (click)="cancelEditMode()"
+            class="cancel-button"
+          >
+            Cancel
+          </ion-button>
+          <ion-button
+            size="small"
+            color="primary"
+            (click)="saveChanges()"
+            class="confirm-button"
+          >
+            Confirm
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Fields -->
+    <form>
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input
+          [(ngModel)]="user.name"
+          name="name"
+          [readonly]="!isEditing"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input
+          [(ngModel)]="user.email"
+          name="email"
+          [readonly]="!isEditing"
+        ></ion-input>
+      </ion-item>
+
+      <div *ngIf="isEditing">
+        <ion-item>
+          <ion-label position="stacked">Current Password</ion-label>
+          <ion-input
+            [(ngModel)]="currentPassword"
+            name="currentPassword"
+            type="password"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">New Password</ion-label>
+          <ion-input
+            [(ngModel)]="newPassword"
+            name="newPassword"
+            type="password"
+          ></ion-input>
+        </ion-item>
+      </div>
+    </form>
+  </div>
+
+  <!-- Version Text at Bottom -->
+  <div class="version-container">
+    <h3>V.0.1</h3>
+  </div>
 </ion-content>
+
+<app-footer-tabs></app-footer-tabs>

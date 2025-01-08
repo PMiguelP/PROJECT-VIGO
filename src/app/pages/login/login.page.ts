@@ -17,7 +17,6 @@ export class LoginPage {
   login() {
     this.authService.login(this.email, this.password).subscribe({
       next: () => {
-        // Redireciona para a página inicial após o login
         this.router.navigate(['/home']);
       },
       error: (err) => {

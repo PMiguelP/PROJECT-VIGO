@@ -1,27 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      <img
-        src="assets/icon/favicon.png"
-        alt="VIGO"
-        style="width: 24px; height: 24px; margin-right: 8px"
-      />
-      V.1.1
-      <!-- Exibe o nome do usuário -->
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <div id="container">
-    <div
-      class="ball"
-      [ngClass]="{'green-ball': isAuthenticated, 'red-ball': !isAuthenticated}"
-    ></div>
-    <strong>LAST DEEP OIL ESCAVATION 1231</strong>
-    <ion-button (click)="navigateToLogin()">Ir para Login</ion-button>
-    <ion-button (click)="navigateToSignUp()">Ir para SignUp</ion-button>
+  <div>
+    <span slot="title">{{ greetingMessage }}</span>
+    <h2>
+      Hello,
+      <span *ngIf="(user$ | async)?.name"> {{ (user$ | async)?.name }}</span>
+    </h2>
   </div>
+  <div id="container">
+    <img src="../../assets/images/celebrating.png" alt="profilepicture" />
+    <strong>Make your own private bachelor party plan</strong>
+  </div>
+  <ion-fab
+    slot="fixed"
+    horizontal="center"
+    vertical="bottom"
+    style="bottom: 2cm"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <app-footer-tabs></app-footer-tabs>

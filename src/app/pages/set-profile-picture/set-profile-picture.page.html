@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Choose a Profile Picture</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let row of images" class="image-row-container">
+    <h2 class="row-title">{{ row.name }}</h2>
+
+    <div class="image-row">
+      <img
+        *ngFor="let image of row.items"
+        [src]="image"
+        alt="Profile Picture"
+        class="profile-pic"
+        (click)="selectImage(image)"
+      />
+    </div>
+  </div>
+</ion-content>

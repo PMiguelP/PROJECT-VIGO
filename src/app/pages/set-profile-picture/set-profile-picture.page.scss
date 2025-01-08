@@ -1,0 +1,19 @@
+.image-row-container {
+  margin: 10px 0;
+}
+
+.image-row {
+  display: flex; /* Enable horizontal flex layout */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 10px; /* Adds spacing between images */
+  padding: 5px; /* Optional padding for better visuals */
+}
+
+img.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  flex-shrink: 0; /* Prevent images from shrinking */
+}
