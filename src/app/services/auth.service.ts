@@ -31,7 +31,7 @@ export class AuthService {
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   checkAuth(): Observable<boolean> {
     return this.http

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="black">
-    <ion-title class="section">New Event</ion-title>
+    <ion-title class="ion-text-center">Edit Event</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon name="close-outline" size="large"></ion-icon>
@@ -12,7 +12,7 @@
 <ion-content class="ion-padding">
   <form (ngSubmit)="saveEvent()" #eventForm="ngForm">
     <!-- Image -->
-    <ion-label class="section">Image</ion-label>
+    <ion-label class="section-title">Image</ion-label>
     <ion-card-content>
       <input type="file" (change)="onImageSelected($event)" accept="image/*" hidden #fileInput>
       <img *ngIf="event.image" [src]="event.image" alt="Event Image" class="event-image-preview"
@@ -22,40 +22,33 @@
     </ion-card-content>
 
     <!-- Event Name -->
-    <ion-label class="section">Event Name</ion-label>
+    <ion-label class="section-title">Event Name</ion-label>
     <ion-item lines="none" class="custom-item">
       <ion-input [(ngModel)]="event.title" name="title" placeholder="Enter a memorable name for your event"
         class="custom-input" required #title="ngModel"></ion-input>
     </ion-item>
     <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error-message">
-      <ion-text color="danger" class="ion-text-center">Event Name is required.</ion-text>
+      <ion-text color="danger">Event Name is required.</ion-text>
     </div>
 
     <!-- Description -->
-    <ion-label class="section">Description</ion-label>
+    <ion-label class="section-title">Description</ion-label>
     <ion-item lines="none" class="custom-item">
       <ion-textarea [(ngModel)]="event.description" name="description" placeholder="What's this event about?" rows="4"
         class="custom-textarea" required #description="ngModel"></ion-textarea>
     </ion-item>
     <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-message">
-      <ion-text color="danger" class="ion-text-center">Description is required.</ion-text>
+      <ion-text color="danger">Description is required.</ion-text>
     </div>
 
     <!-- Location -->
-    <ion-label class="section">Location</ion-label>
+    <ion-label class="section-title">Location</ion-label>
     <ion-item lines="none" class="custom-item">
       <ion-input [(ngModel)]="event.location" name="location" placeholder="Enter the location" class="custom-input"
         required #location="ngModel"></ion-input>
     </ion-item>
     <div *ngIf="location.invalid && (location.dirty || location.touched)" class="error-message">
-      <ion-text color="danger" class="ion-text-center">Location is required.</ion-text>
-    </div>
-
-    <!-- Itinerary -->
-    <ion-label class="section">Itinerary</ion-label>
-    <div class="custom-item">
-      <ion-text color="primary" class="clickable-text ion-text-center" (click)="selectItinerary('schedule')">Add
-        Itinerary -></ion-text>
+      <ion-text color="danger">Location is required.</ion-text>
     </div>
 
     <div class="ion-margin-top">

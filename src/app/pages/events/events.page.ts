@@ -8,7 +8,7 @@ interface Participant {
   avatar: string;
 }
 
-interface Event {
+export interface Event {
   title: string;
   description: string;
   location: string;
@@ -89,48 +89,13 @@ export class EventsPage {
       cssClass: 'event-details-modal',
     });
 
-    await modal.present();
-  }
-
-  async editEvent(event: Event) {
-    const modal = await this.modalCtrl.create({
-      component: NewEventComponent,
-      componentProps: { event },
-      cssClass: 'new-event-modal',
-    });
-
-    modal.onDidDismiss().then(async (result) => {
-      if (result.data) {
-        const index = this.eventsData.findIndex(e => e.title === event.title);
-        if (index !== -1) {
-          this.eventsData[index] = result.data;
-          const toast = await this.toastCtrl.create({
-            message: 'Event edited successfully!',
-            duration: 2000,
-            color: 'success',
-          });
-          await toast.present();
-        }
+    modal.onDidDismiss().then((result) => {
+      if (result.data && result.data.deleted) {
+        this.eventsData = this.eventsData.filter(e => e !== result.data.event);
+        this.hasData = this.eventsData.length > 0;
       }
     });
 
     await modal.present();
-  }
-
-  async deleteEvent(event: Event) {
-    this.eventsData = this.eventsData.filter(e => e !== event);
-    this.hasData = this.eventsData.length > 0;
-
-    const toast = await this.toastCtrl.create({
-      message: 'Event deleted successfully!',
-      duration: 2000,
-      color: 'danger',
-    });
-    await toast.present();
-  }
-
-  setItinerary(event: Event) {
-    console.log('Set itinerary for event:', event);
-    // Implement set itinerary logic here
   }
 }

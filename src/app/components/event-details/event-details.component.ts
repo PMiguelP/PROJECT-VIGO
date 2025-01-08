@@ -1,20 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { NewEventComponent } from '../new-event/new-event.component';
-
-interface Participant {
-  name: string;
-  avatar: string;
-}
-
-interface Event {
-  title: string;
-  description: string;
-  location: string;
-  date: string;
-  image: string;
-  participants: Participant[];
-}
+import { Event } from '../../pages/events/events.page'; // Ajuste o caminho conforme necessário
+import { EditEventComponent } from '../edit-event/edit-event.component';
 
 @Component({
   selector: 'app-event-details',
@@ -26,19 +13,16 @@ export class EventDetailsComponent {
 
   constructor(private modalCtrl: ModalController, private toastCtrl: ToastController) { }
 
-  closeModal() {
-    this.modalCtrl.dismiss();
-  }
-
   async editEvent() {
     const modal = await this.modalCtrl.create({
-      component: NewEventComponent,
+      component: EditEventComponent,
       componentProps: { event: this.event },
-      cssClass: 'new-event-modal',
+      cssClass: 'edit-event-modal',
     });
 
     modal.onDidDismiss().then(async (result) => {
       if (result.data) {
+        // Atualize os detalhes do evento conforme necessário
         this.event = result.data;
         const toast = await this.toastCtrl.create({
           message: 'Event edited successfully!',
@@ -53,18 +37,18 @@ export class EventDetailsComponent {
   }
 
   async deleteEvent() {
-    // Logic to delete the event
+    // Notifique o componente pai sobre a exclusão do evento
+    this.modalCtrl.dismiss({ deleted: true, event: this.event });
+
     const toast = await this.toastCtrl.create({
       message: 'Event deleted successfully!',
       duration: 2000,
       color: 'danger',
     });
     await toast.present();
-    this.closeModal();
   }
 
-  setItinerary() {
-    console.log('Set itinerary for event:', this.event);
-    // Implement set itinerary logic here
+  closeModal() {
+    this.modalCtrl.dismiss();
   }
 }

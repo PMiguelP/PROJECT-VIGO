@@ -1,29 +1,37 @@
 .event-card {
-    margin: 16px 0;
-    border-radius: 12px;
-    overflow: hidden;
-    background: transparent;
-    box-shadow: none;
+    border-radius: 8px;
     width: 100%;
+    text-align: start;
+    max-width: 600px;
+    height: 250px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .events-list {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.event-image-container {
-    position: relative;
+.event-image {
     width: 100%;
-    height: 200px;
-}
-
-.event-image-container img {
-    width: 100%;
-    height: 100%;
+    height: 150px;
+    border-radius: 8px;
     object-fit: cover;
-    margin-bottom: 16px;
+    padding: 10px;
+}
+
+ion-card-title {
+    font-size: 18px;
+    line-height: 0.8;
+    color: white;
+}
+
+.copy-link-button {
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    font-size: 14px;
 }
 
 .empty-state {
@@ -35,79 +43,12 @@
 }
 
 .icon-container .party {
-    width: 100px;
-    height: 100px;
-    opacity: 0.7;
+    width: 80px;
+    height: 80px;
 }
 
 .no-events {
     color: #888;
-    margin-top: 16px;
-}
-
-ion-tab-bar {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-ion-tab-button {
-    --color: #888;
-    --color-selected: #fff;
-}
-
-.event-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    border-radius: 12px;
-}
-
-.empty-state .party {
-    width: 150px;
-    height: auto;
-}
-
-.button-group {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
-}
-
-ion-button {
-    --background: none;
-    --color: var(--ion-color-primary);
-    font-size: 14px;
-}
-
-.copy-link-button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-}
-
-ion-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-ion-card-title {
-    flex: 1;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.copy-link-button {
-    flex-shrink: 0;
-}
-
-@media (max-width: 600px) {
-    ion-card-title {
-        font-size: 14px;
-        /* Ajuste o tamanho do texto para dispositivos móveis */
-    }
+    margin-top: 8px;
+    text-align: center;
 }

@@ -1,29 +1,43 @@
-<ion-header mode="ios">
-  <ion-toolbar mode="ios">
-    <ion-title class="ion-text-center" mode="ios">{{ event.title }}</ion-title>
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Event Details</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="closeModal()" mode="ios">
-        <ion-icon name="close-outline" size="large" mode="ios"></ion-icon>
+      <ion-button (click)="editEvent()">
+        <ion-icon name="pencil-outline" size="medium"></ion-icon>
+      </ion-button>
+      <ion-button (click)="deleteEvent()">
+        <ion-icon name="trash-outline" size="medium"></ion-icon>
+      </ion-button>
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close-outline" size="medium"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" mode="ios">
-  <ion-card class="ion-margin custom-card" mode="ios">
-    <ion-card-content>
-      <p>{{ event.description }}</p>
-      <p><strong>Location:</strong> {{ event.location }}</p>
-      <p><strong>Date:</strong> {{ event.date }}</p>
-      <p><strong>Participants:</strong></p>
-      <ion-list mode="ios">
-        <ion-item *ngFor="let participant of event.participants" mode="ios">
-          <ion-avatar slot="start" mode="ios">
-            <img [src]="participant.avatar" />
-          </ion-avatar>
-          <ion-label mode="ios">{{ participant.name }}</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+<ion-content class="ion-padding black-theme">
+  <!-- Image -->
+  <ion-label class="section-title ion-text-center">Image</ion-label>
+  <div class="image-container">
+    <img *ngIf="event.image" [src]="event.image" alt="Event Image" class="event-image-preview">
+    <img *ngIf="!event.image" src="https://via.placeholder.com/150" alt="Placeholder Image" class="event-image-preview">
+  </div>
+
+  <!-- Event Name -->
+  <ion-label class="section-title ion-text-center">Event Name</ion-label>
+  <ion-item lines="none" class="custom-item">
+    <ion-label class="ion-text-center">{{ event.title }}</ion-label>
+  </ion-item>
+
+  <!-- Description -->
+  <ion-label class="section-title ion-text-center">Description</ion-label>
+  <ion-item lines="none" class="custom-item">
+    <ion-label class="ion-text-center">{{ event.description }}</ion-label>
+  </ion-item>
+
+  <!-- Location -->
+  <ion-label class="section-title ion-text-center">Location</ion-label>
+  <ion-item lines="none" class="custom-item">
+    <ion-label class="ion-text-center">{{ event.location }}</ion-label>
+  </ion-item>
 </ion-content>

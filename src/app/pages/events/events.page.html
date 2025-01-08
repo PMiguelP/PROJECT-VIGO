@@ -1,46 +1,28 @@
-<ion-header mode="ios" [translucent]="true">
-  <ion-toolbar mode="ios">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" mode="ios"></ion-back-button>
-    </ion-buttons>
-    <ion-title mode="ios">My Events</ion-title>
-  </ion-toolbar>
+`<ion-header>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/"></ion-back-button>
+  </ion-buttons>
+  <ion-title style="font-size:large;">My Events</ion-title>
 </ion-header>
 
-<ion-content class="ion-text-center ion-padding" [fullscreen]="true" mode="ios">
+<ion-content class="ion-text-center ion-padding" [fullscreen]="true">
   <div *ngIf="hasData; else emptyTemplate">
-    <!-- caso tenha conteudo -->
     <div class="events-list">
       <div *ngFor="let event of eventsData" class="event-card">
-        <ion-card (click)="openEventDetails(event)" mode="ios">
-          <ion-card-header mode="ios">
-            <ion-card-title mode="ios">{{ event.title }}</ion-card-title>
+        <ion-card (click)="openEventDetails(event)">
+          <ion-card-header>
+            <ion-card-title>{{ event.title }}</ion-card-title>
             <ion-button fill="clear" color="primary" class="copy-link-button"
-              (click)="copyLink(event); $event.stopPropagation()" mode="ios">
-              <ion-icon name="copy-outline" mode="ios"></ion-icon>
+              (click)="copyLink(event); $event.stopPropagation()">
+              <ion-icon name="copy-outline"></ion-icon>
             </ion-button>
           </ion-card-header>
           <img [src]="event.image || 'https://via.placeholder.com/600x300'" [alt]="event.title" class="event-image" />
-          <ion-footer mode="ios">
-            <div class="button-group">
-              <ion-button fill="clear" color="tertiary" (click)="editEvent(event); $event.stopPropagation()" mode="ios">
-                Edit Event
-              </ion-button>
-              <ion-button fill="clear" color="danger" (click)="deleteEvent(event); $event.stopPropagation()" mode="ios">
-                Delete Event
-              </ion-button>
-              <ion-button fill="clear" color="secondary" (click)="setItinerary(event); $event.stopPropagation()"
-                mode="ios">
-                Set Itinerary
-              </ion-button>
-            </div>
-          </ion-footer>
         </ion-card>
       </div>
     </div>
   </div>
 
-  <!-- caso que esteja vazio -->
   <ng-template #emptyTemplate>
     <div class="empty-state">
       <div class="icon-container">
@@ -50,9 +32,9 @@
     </div>
   </ng-template>
 
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed" mode="ios">
-    <ion-fab-button color="primary" (click)="openNewEventModal()" mode="ios">
-      <ion-icon name="add" mode="ios"></ion-icon>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="openNewEventModal()" style="--background: #0373F3;">
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
