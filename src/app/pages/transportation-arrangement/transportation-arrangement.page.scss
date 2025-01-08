@@ -1,0 +1,118 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.back-button {
+    margin-right: 10px;
+    font-size: 20px;
+    --color: #fff;
+}
+
+ion-title {
+    flex: 1;
+    text-align: center;
+    font-size: 32px;
+    color: #fff;
+}
+
+.section h2 {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.ticket-item {
+    --background: #151515;
+    margin-bottom: 16px;
+    border-radius: 18px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-size: 24px;
+    --border-style: none;
+
+    img {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+.add-ticket-btn {
+    margin-top: 16px;
+    --background: #0373F3;
+    font-weight: 500;
+}
+
+.flight-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.flight-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.flight-card-content {
+    flex: 1;
+    padding: 16px;
+    border-radius: 12px;
+    background: #151515;
+
+    .country-info {
+        text-align: center;
+
+        .fi {
+            width: 2em;
+            height: 1.5em;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        .country-code {
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .time {
+            color: #888888;
+            font-size: 14px;
+        }
+
+        .flight-class {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+
+            ion-icon {
+                font-size: 18px;
+            }
+
+            span {
+                font-size: 14px;
+                color: #0066cc;
+            }
+        }
+    }
+}
+
+.arrow-icon {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.determine-plan-text {
+    font-size: 24px;
+    color: #ffffff;
+    text-align: center;
+    display: block;
+    margin-top: 40px;
+}

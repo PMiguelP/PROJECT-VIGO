@@ -1,0 +1,41 @@
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <div class="header-container">
+      <ion-button fill="clear" class="back-button">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-title size="large">Itinerary Form</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-bg">
+  <div class="days-navigation">
+    <div *ngFor="let day of days" class="day-item" [class.active]="selectedDay === day.number"
+      (click)="selectDay(day.number)">
+      <span class="day-label">Day {{ day.number }}</span>
+      <span class="date-label">{{ day.date }}</span>
+    </div>
+  </div>
+
+  <div class="itinerary-list">
+    <div class="itinerary-item" *ngFor="let item of itineraryItems">
+      <div class="time">{{ item.time }}</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-line"></div>
+      <div class="content">
+        <div class="title">{{ item.title }}</div>
+        <div class="subtitle">{{ item.subtitle }}</div>
+        <div class="weather-icon">{{ shouldShowCheckMark(item.time) ? '✔️' : item.weather }}</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="checklist-title">Checklist</h2>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button class="add-button">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

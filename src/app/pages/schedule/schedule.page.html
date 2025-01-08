@@ -1,0 +1,59 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div class="header-container">
+        <ion-button fill="clear" class="back-button">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-title size="large">New Event</ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="location-card">
+    <img src="https://picsum.photos/800/400" alt="Nordic Cottage" class="location-image">
+    <div class="location-overlay">
+      <span class="location-label">Nordic Cottage</span>
+      <h2 class="location-title">Nordic Cottage</h2>
+    </div>
+  </div>
+
+  <div class="calendar-section">
+    <div class="calendar-header">
+      <span>Select dates</span>
+      <div class="month-selector">
+        <ion-button fill="clear" (click)="previousMonth()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+        <span>{{ currentMonth }}</span>
+        <ion-button fill="clear" (click)="nextMonth()">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="calendar-grid">
+      <div class="weekday" *ngFor="let day of weekDays">{{ day }}</div>
+      <div class="day" *ngFor="let day of calendarDays" [class.selected]="isSelected(day)"
+        [class.range]="isInRange(day)" [class.empty]="!day" (click)="selectDate(day)">
+        {{ day }}
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-section">
+    <div class="query-input-container">
+      <div class="query-input">
+        <ion-icon name="people-outline"></ion-icon>
+        <input type="text" placeholder="Query journey">
+      </div>
+      <ion-button fill="clear" class="send-button">
+        <ion-icon class="send-icon" name="paper-plane-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <ion-button expand="block" class="next-button">
+      Next step
+    </ion-button>
+  </div>
+</ion-content>
