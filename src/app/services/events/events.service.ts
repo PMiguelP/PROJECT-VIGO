@@ -26,12 +26,10 @@ export interface Participant {
 
 export interface Itinerary {
   id: string;
-  // Add other itinerary properties as needed
 }
 
 export interface Comment {
   id: string;
-  // Add other comment properties as needed
 }
 
 export interface CreateEventDto {
@@ -52,11 +50,9 @@ export class EventService {
   private readonly apiUrl = `${environment.apiUrl}/events`;
 
   constructor() {
-    // Configure Axios defaults
     axios.defaults.withCredentials = true;
   }
 
-  // Create a new event
   createEvent(eventData: CreateEventDto): Observable<Event> {
     return from(axios.post(`${this.apiUrl}/create`, eventData)).pipe(
       map((response) => response.data),
@@ -68,7 +64,6 @@ export class EventService {
     );
   }
 
-  // Get all events for the current user
   getEvents(): Observable<Event[]> {
     return from(axios.get(`${this.apiUrl}/all`)).pipe(
       map((response) => response.data),
@@ -77,7 +72,6 @@ export class EventService {
     );
   }
 
-  // Get a single event by ID
   getEvent(id: string): Observable<Event> {
     return from(axios.get(`${this.apiUrl}/${id}`)).pipe(
       map((response) => response.data),
@@ -85,7 +79,6 @@ export class EventService {
     );
   }
 
-  // Update an event
   updateEvent(
     id: string,
     eventData: Partial<CreateEventDto>
@@ -104,7 +97,6 @@ export class EventService {
     );
   }
 
-  // Delete an event
   deleteEvent(id: string): Observable<void> {
     return from(axios.delete(`${this.apiUrl}/delete/${id}`)).pipe(
       tap(() => {
@@ -116,7 +108,6 @@ export class EventService {
     );
   }
 
-  // Update share link
   updateShareLink(id: string): Observable<{ shareLink: string }> {
     return from(axios.put(`${this.apiUrl}/${id}/share`)).pipe(
       map((response) => response.data),
@@ -124,7 +115,6 @@ export class EventService {
     );
   }
 
-  // Get event participants
   getEventParticipants(id: string): Observable<Participant[]> {
     return from(axios.get(`${this.apiUrl}/${id}/participants`)).pipe(
       map((response) => response.data),
@@ -132,7 +122,6 @@ export class EventService {
     );
   }
 
-  // Respond to event invitation
   respondToInvitation(
     eventId: string,
     response: 'CONFIRMED' | 'DECLINED'
@@ -145,7 +134,6 @@ export class EventService {
     );
   }
 
-  // Error handling
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(() => error.response?.data || error);

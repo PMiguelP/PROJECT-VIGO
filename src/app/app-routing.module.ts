@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './services/auth.guard'; // Importe o AuthGuard
+import { AuthGuard } from './services/auth.guard';
 import { UnauthenticatedGuard } from './services/guards/unauthenticated-guard.guard';
 
 const routes: Routes = [
@@ -70,7 +70,9 @@ const routes: Routes = [
   {
     path: 'schedule',
     loadChildren: () =>
-      import('./pages/schedule/schedule.module').then((m) => m.SchedulePageModule),
+      import('./pages/schedule/schedule.module').then(
+        (m) => m.SchedulePageModule
+      ),
   },
   {
     path: 'transportation-arrangement',

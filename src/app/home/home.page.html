@@ -1,13 +1,20 @@
 <ion-content [fullscreen]="true">
-  <div>
+  <div class="header-container">
     <span slot="title">{{ greetingMessage }}</span>
     <h2>
       Hello,
-      <span *ngIf="(user$ | async)?.name"> {{ (user$ | async)?.name }}</span>
+      <span *ngIf="user?.name"> {{ user?.name }}</span>
     </h2>
+    <div class="profile-picture-container">
+      <img
+        [src]="user?.presetProfilePicture?.url || placeholderImage"
+        alt="Profile Picture"
+        class="profile-picture"
+      />
+    </div>
   </div>
   <div id="container">
-    <img src="../../assets/images/celebrating.png" alt="profilepicture" />
+    <img src="../../assets/images/celebrating.png" alt="Celebrating" />
     <strong>Make your own private bachelor party plan</strong>
   </div>
   <ion-fab
