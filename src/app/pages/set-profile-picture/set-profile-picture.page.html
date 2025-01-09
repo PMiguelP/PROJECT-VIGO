@@ -1,21 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Choose a Profile Picture</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div *ngFor="let row of images" class="image-row-container">
-    <h2 class="row-title">{{ row.name }}</h2>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div class="header-container">
+        <ion-button fill="clear" class="back-button">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-title size="medium">Select Profile Picture</ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
 
-    <div class="image-row">
-      <img
-        *ngFor="let image of row.items"
-        [src]="image"
-        alt="Profile Picture"
-        class="profile-pic"
-        (click)="selectImage(image)"
-      />
+  <div *ngFor="let category of categories" class="category-container">
+    <h2 class="category-title">{{ category.name }}</h2>
+
+    <!-- Horizontal scrollable container -->
+    <div class="image-row-scroll">
+      <div
+        *ngFor="let picture of category.pictures"
+        class="image-item"
+        (click)="selectImage(picture.id)"
+      >
+        <img
+          [src]="picture.url"
+          alt="Profile Picture"
+          class="profile-pic"
+          [class.selected]="picture.id === selectedImageId"
+        />
+        <p class="image-description">{{ picture.description }}</p>
+      </div>
     </div>
   </div>
 </ion-content>

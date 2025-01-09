@@ -6,9 +6,39 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
+  profilePictureUrl?: string;
+  presetProfilePicture?: {
+    url: string;
+    description: string;
+    category: string;
+  };
+  events?: Array<{
+    id: string;
+    name: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+  }>;
+  eventParticipants?: Array<{
+    event: {
+      id: string;
+      name: string;
+    };
+    status: string;
+    role: string;
+  }>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface AuthResponse {
+  accessToken?: string;
+  message: string;
+  isAuthenticated?: boolean;
+  user?: User;
 }
 
 interface AuthResponse {
@@ -31,7 +61,7 @@ export class AuthService {
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   checkAuth(): Observable<boolean> {
     return this.http

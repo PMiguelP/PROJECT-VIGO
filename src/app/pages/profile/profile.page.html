@@ -1,11 +1,21 @@
 <ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div class="header-container">
+        <ion-button fill="clear" class="back-button">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-title size="medium">Profile</ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
   <div *ngIf="user">
     <!-- Profile Section -->
     <div class="profile-container">
       <div class="profile-picture">
         <!-- Profile Picture -->
         <img
-          [src]="placeholderImage"
+          [src]="user.presetProfilePicture?.url || placeholderImage"
           alt="Profile"
           class="round-profile-img"
           (click)="onProfilePictureClick()"
@@ -18,26 +28,26 @@
           class="edit-icon"
           (click)="toggleEditMode()"
         ></ion-icon>
+      </div>
 
-        <!-- Confirm and Cancel Buttons -->
-        <div *ngIf="isEditing" class="edit-buttons">
-          <ion-button
-            size="small"
-            color="medium"
-            (click)="cancelEditMode()"
-            class="cancel-button"
-          >
-            Cancel
-          </ion-button>
-          <ion-button
-            size="small"
-            color="primary"
-            (click)="saveChanges()"
-            class="confirm-button"
-          >
-            Confirm
-          </ion-button>
-        </div>
+      <!-- Confirm and Cancel Buttons -->
+      <div *ngIf="isEditing" class="edit-buttons">
+        <ion-button
+          size="small"
+          color="medium"
+          (click)="cancelEditMode()"
+          class="cancel-button"
+        >
+          Cancel
+        </ion-button>
+        <ion-button
+          size="small"
+          color="primary"
+          (click)="saveChanges()"
+          class="confirm-button"
+        >
+          Confirm
+        </ion-button>
       </div>
     </div>
 
@@ -85,6 +95,7 @@
 
   <!-- Version Text at Bottom -->
   <div class="version-container">
+    <ion-icon name="log-out-outline"></ion-icon>
     <h3>V.0.1</h3>
   </div>
 </ion-content>

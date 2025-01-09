@@ -1,6 +1,35 @@
+.header-container {
+  position: relative;
+  padding: 16px;
+  text-align: left;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.profile-picture-container {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #fff; /* Green border for a polished look */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 #container {
   text-align: center;
-
   position: absolute;
   left: 0;
   right: 0;
@@ -16,9 +45,7 @@
 #container p {
   font-size: 16px;
   line-height: 22px;
-
-  color: #8c8c8c;
-
+  color: #fff;
   margin: 0;
 }
 
@@ -26,22 +53,6 @@
   text-decoration: none;
 }
 
-.ball {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 20px auto;
-  transition: background-color 0.3s ease;
-}
-
-.green-ball {
-  background-color: green;
-}
-
-.red-ball {
-  background-color: red;
-}
-
 ion-content {
-  --padding-bottom: 90px; /* Match footer height */
+  --padding-bottom: 90px;
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { UserService } from '../services/user/user.service';
 import { User } from '../services/auth.service';
 
 @Component({
@@ -10,15 +9,15 @@ import { User } from '../services/auth.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  user$: Observable<User | null>;
+  user: User | null = null;
   greetingMessage: string = '';
+  placeholderImage: string = 'https://via.placeholder.com/150'; // Fallback image
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.user$ = this.authService.user$;
-  }
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.setGreetingMessage();
+    this.loadUserInfo();
   }
 
   setGreetingMessage() {
@@ -31,5 +30,16 @@ export class HomePage implements OnInit {
     } else {
       this.greetingMessage = 'Good Night';
     }
+  }
+
+  loadUserInfo() {
+    this.userService.getUserInfo().subscribe({
+      next: (user) => {
+        this.user = user;
+      },
+      error: (err) => {
+        console.error('Error loading user info:', err);
+      },
+    });
   }
 }
