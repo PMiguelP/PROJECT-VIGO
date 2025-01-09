@@ -5,21 +5,17 @@ import { IonicModule } from '@ionic/angular';
 import { EventsPageRoutingModule } from './events-routing.module';
 import { EventsPage } from './events.page';
 import { NewEventComponent } from '../../components/new-event/new-event.component';
-import { EventDetailsComponent } from '../../components/event-details/event-details.component';
-import { EditEventComponent } from '../../components/edit-event/edit-event.component';
+
+import { SharedModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EventsPageRoutingModule
+    EventsPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [
-    EventsPage,
-    NewEventComponent,
-    EventDetailsComponent,
-    EditEventComponent
-  ]
+  declarations: [EventsPage, NewEventComponent],
 })
-export class EventsPageModule { }
+export class EventsPageModule {}

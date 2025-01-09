@@ -12,13 +12,21 @@
 
   <div *ngIf="hasData; else emptyTemplate" class="trips-container">
     <ion-list>
-      <ion-item *ngFor="let trip of tripsData" class="trip-item" lines="none" detail="false">
+      <ion-item
+        *ngFor="let trip of tripsData"
+        class="trip-item"
+        lines="none"
+        detail="false"
+      >
         <div class="trip-content">
           <div class="trip-info">
             <img [src]="trip.image" [alt]="trip.title" class="trip-image" />
             <h2>{{ trip.title }}</h2>
           </div>
-          <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+          <ion-icon
+            name="chevron-forward-outline"
+            class="arrow-icon"
+          ></ion-icon>
         </div>
       </ion-item>
     </ion-list>
@@ -29,7 +37,11 @@
 
   <ng-template #emptyTemplate>
     <div class="empty-container">
-      <img src="assets/images/globe-with-plane.png" alt="Globe illustration" class="globe-img" />
+      <img
+        src="assets/images/globe-with-plane.png"
+        alt="Globe illustration"
+        class="globe-img"
+      />
       <p class="empty-text">
         Nothing to see here, start now your adventure by adding a trip
       </p>
@@ -39,3 +51,5 @@
     </div>
   </ng-template>
 </ion-content>
+
+<app-footer-tabs></app-footer-tabs>

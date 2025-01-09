@@ -8,13 +8,16 @@ import { MyItineraryPageRoutingModule } from './my-itinerary-routing.module';
 
 import { MyItineraryPage } from './my-itinerary.page';
 
+import { SharedModule } from '../../components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MyItineraryPageRoutingModule
+    MyItineraryPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [MyItineraryPage]
+  declarations: [MyItineraryPage],
 })
 export class MyItineraryPageModule {}

@@ -1,40 +1,106 @@
-`<ion-header>
-  <ion-buttons slot="start">
-    <ion-back-button defaultHref="/"></ion-back-button>
-  </ion-buttons>
-  <ion-title style="font-size:large;">My Events</ion-title>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="font-size: large">My Events</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-text-center ion-padding" [fullscreen]="true">
+  <!-- Dynamic Event List or Empty State -->
   <div *ngIf="hasData; else emptyTemplate">
     <div class="events-list">
-      <div *ngFor="let event of eventsData" class="event-card">
-        <ion-card (click)="openEventDetails(event)">
-          <ion-card-header>
-            <ion-card-title>{{ event.title }}</ion-card-title>
-            <ion-button fill="clear" color="primary" class="copy-link-button"
-              (click)="copyLink(event); $event.stopPropagation()">
-              <ion-icon name="copy-outline"></ion-icon>
-            </ion-button>
-          </ion-card-header>
-          <img [src]="event.image || 'https://via.placeholder.com/600x300'" [alt]="event.title" class="event-image" />
-        </ion-card>
-      </div>
+      <!-- Use ion-item-sliding for swipe actions -->
+      <ion-item-sliding *ngFor="let event of eventsData">
+        <ion-item class="ion-no-padding">
+          <ion-card
+            class="ion-margin-vertical ion-no-margin"
+            style="width: 100%"
+          >
+            <ion-card-header>
+              <ion-card-title>{{ event.name }}</ion-card-title>
+              <ion-card-subtitle>{{ event.destiny }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <p><strong>Description:</strong> {{ event.description }}</p>
+              <p>
+                <strong>Start Date:</strong> {{ event.startDate | date: 'short'
+                }}
+              </p>
+              <p>
+                <strong>End Date:</strong> {{ event.endDate | date: 'short' }}
+              </p>
+
+              <!-- Display participants -->
+              <div *ngIf="event.participants && event.participants.length > 0">
+                <strong>Participants:</strong>
+                <ul>
+                  <li *ngFor="let participant of event.participants">
+                    <p><strong>User ID:</strong> {{ participant.userId }}</p>
+                    <p>
+                      <strong>Role:</strong>
+                      <ion-chip color="primary"
+                        >{{ participant.role }}</ion-chip
+                      >
+                    </p>
+                    <p>
+                      <strong>Status:</strong>
+                      <ion-chip
+                        [color]="participant.status === 'CONFIRMED' ? 'success' : 'warning'"
+                      >
+                        {{ participant.status }}
+                      </ion-chip>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Button to copy event link -->
+              <ion-button (click)="copyLink(event)" color="primary">
+                Copy Link
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-item>
+
+        <!-- Side buttons that appear on swipe -->
+        <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="viewEvent(event)">
+            <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="warning" (click)="editEvent(event)">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="deleteEvent(event)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </div>
   </div>
 
+  <!-- Empty State Template -->
   <ng-template #emptyTemplate>
     <div class="empty-state">
       <div class="icon-container">
-        <img src="https://cdn-icons-png.flaticon.com/512/14759/14759714.png" alt="party" class="party" />
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/14759/14759714.png"
+          alt="party"
+          class="party"
+        />
       </div>
       <h3 class="no-events">No events in here</h3>
     </div>
   </ng-template>
 
+  <!-- Floating Action Button -->
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="openNewEventModal()" style="--background: #0373F3;">
+    <ion-fab-button (click)="openNewEventModal()" style="--background: #0373f3">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
+
+<!-- Footer Tabs -->
+<app-footer-tabs></app-footer-tabs>
