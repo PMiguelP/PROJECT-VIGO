@@ -1,57 +1,43 @@
-import { Component } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import {
+  ModalController,
+  ToastController,
+  AlertController,
+} from '@ionic/angular';
+import { EventService, Event } from '../../services/events/events.service';
 import { NewEventComponent } from '../../components/new-event/new-event.component';
-import { EventDetailsComponent } from '../../components/event-details/event-details.component';
-
-interface Participant {
-  name: string;
-  avatar: string;
-}
-
-export interface Event {
-  title: string;
-  description: string;
-  location: string;
-  date: string;
-  image: string;
-  participants: Participant[];
-}
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.page.html',
   styleUrls: ['./events.page.scss'],
 })
-export class EventsPage {
+export class EventsPage implements OnInit {
   hasData: boolean = false;
+  eventsData: Event[] = [];
 
-  eventsData: Event[] = [
-    {
-      title: 'Despedida solteiro Tobi',
-      description: 'Umas semanas loucas..',
-      location: 'New York',
-      date: '2023-10-01',
-      image: 'https://www.flightgift.com/media/wp/FG/2024/01/stag-do-party.webp',
-      participants: [
-        { name: 'TObi', avatar: 'https://via.placeholder.com/50' },
-        { name: 'Renato', avatar: 'https://via.placeholder.com/50' },
-      ],
-    },
-    {
-      title: 'Bachelor Party 2',
-      description: 'Description for Bachelor Party 2',
-      location: 'Las Vegas',
-      date: '2023-11-05',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyNL0B8aENqdsY9iDkMo2GNe48DHtt8KTwVg&s',
-      participants: [
-        { name: 'Alice Johnson', avatar: 'https://via.placeholder.com/50' },
-        { name: 'Bob Brown', avatar: 'https://via.placeholder.com/50' },
-      ],
-    },
-  ];
+  constructor(
+    private modalCtrl: ModalController,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+    private eventService: EventService
+  ) {}
 
-  constructor(private modalCtrl: ModalController, private toastCtrl: ToastController) {
-    this.hasData = this.eventsData.length > 0;
+  ngOnInit() {
+    this.loadEvents();
+  }
+
+  private loadEvents() {
+    this.eventService.getEvents().subscribe({
+      next: (events) => {
+        this.eventsData = events;
+        this.hasData = this.eventsData.length > 0;
+      },
+      error: (err) => {
+        console.error('Failed to load events:', err);
+        this.hasData = false;
+      },
+    });
   }
 
   async openNewEventModal() {
@@ -64,38 +50,99 @@ export class EventsPage {
       if (result.data) {
         this.eventsData.push(result.data);
         this.hasData = this.eventsData.length > 0;
+        this.showToast('Event created successfully');
       }
     });
 
     await modal.present();
   }
 
-  async copyLink(event: Event) {
-    const link = `https://example.com/events/${event.title.replace(/\s+/g, '-').toLowerCase()}`;
-    await navigator.clipboard.writeText(link);
+  async editEvent(event: Event) {
+    const modal = await this.modalCtrl.create({
+      component: NewEventComponent,
+      cssClass: 'new-event-modal',
+      componentProps: {
+        isEdit: true,
+        eventData: event,
+      },
+    });
 
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        const index = this.eventsData.findIndex((e) => e.id === event.id);
+        if (index !== -1) {
+          this.eventsData[index] = result.data;
+        }
+        this.showToast('Event updated successfully');
+      }
+    });
+
+    await modal.present();
+  }
+
+  async viewEvent(event: Event) {
+    const modal = await this.modalCtrl.create({
+      component: NewEventComponent,
+      cssClass: 'new-event-modal',
+      componentProps: {
+        isViewOnly: true,
+        eventData: event,
+      },
+    });
+
+    await modal.present();
+  }
+
+  async deleteEvent(event: Event) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm Deletion',
+      message: `Are you sure you want to delete "${event.name}"?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.eventService.deleteEvent(event.id).subscribe({
+              next: () => {
+                this.eventsData = this.eventsData.filter(
+                  (e) => e.id !== event.id
+                );
+                this.hasData = this.eventsData.length > 0;
+                this.showToast('Event deleted successfully');
+              },
+              error: (err) => {
+                console.error('Failed to delete event:', err);
+                this.showToast('Failed to delete event', 'danger');
+              },
+            });
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async showToast(message: string, color: string = 'success') {
     const toast = await this.toastCtrl.create({
-      message: 'Event link copied to clipboard!',
+      message,
       duration: 2000,
-      color: 'success',
+      color,
+      position: 'bottom',
     });
     await toast.present();
   }
 
-  async openEventDetails(event: Event) {
-    const modal = await this.modalCtrl.create({
-      component: EventDetailsComponent,
-      componentProps: { event },
-      cssClass: 'event-details-modal',
-    });
+  async copyLink(event: Event) {
+    const link = `https://example.com/events/${event.name
+      .replace(/\s+/g, '-')
+      .toLowerCase()}`;
+    await navigator.clipboard.writeText(link);
 
-    modal.onDidDismiss().then((result) => {
-      if (result.data && result.data.deleted) {
-        this.eventsData = this.eventsData.filter(e => e !== result.data.event);
-        this.hasData = this.eventsData.length > 0;
-      }
-    });
-
-    await modal.present();
+    await this.showToast('Event link copied to clipboard!');
   }
 }

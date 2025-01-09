@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Participants</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Participants</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-spinner *ngIf="isLoading" class="ion-margin"></ion-spinner>
+  <div *ngIf="!isLoading && error" class="ion-text-center">
+    <p>{{ error }}</p>
+  </div>
+
+  <ion-list *ngIf="!isLoading && participants.length > 0">
+    <ion-item *ngFor="let participant of participants">
+      <ion-label>
+        <h2>User ID: {{ participant.userId }}</h2>
+        <p>Role: {{ participant.role }}</p>
+        <p>Status: {{ participant.status }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="!isLoading && participants.length === 0" class="ion-text-center">
+    <p>No participants found for this event.</p>
+  </div>
+</ion-content>

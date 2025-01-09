@@ -1,92 +1,97 @@
 .header-container {
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
 }
 
 .back-button {
-    margin-right: 10px;
-    color: #fff;
-    font-size: 24px;
+  margin-right: 10px;
+  color: #fff;
+  font-size: 24px;
 }
 
 ion-title {
-    flex: 1;
-    text-align: center;
-    font-size: 36px;
-    color: #fff;
+  flex: 1;
+  text-align: center;
+  font-size: 36px;
+  color: #fff;
 }
 
 .trips-container {
-    padding: 16px;
+  padding: 16px;
 }
 
 .trip-item {
-    --background: #151515;
-    --border-radius: 18px;
-    margin-bottom: 12px;
+  --background: #151515;
+  --border-radius: 18px;
+  margin-bottom: 12px;
 
-    .trip-content {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px;
-    }
+  .trip-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+  }
 
-    .trip-info {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+  .trip-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 
-    .trip-image {
-        width: 64px;
-        height: 64px;
-        border-radius: 8px;
-    }
+  .trip-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+  }
 
-    h2 {
-        color: white;
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0;
-    }
+  h2 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
 
-    .arrow-icon {
-        color: white;
-        font-size: 20px;
-    }
+  .arrow-icon {
+    color: white;
+    font-size: 20px;
+  }
 }
 
 ion-button.view-button::part(native) {
-    border-radius: 18px;
-    background-color: #0373F3;
+  border-radius: 18px;
+  background-color: #0373f3;
 }
 
-
 .empty-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 
-    .globe-img {
-        width: auto;
-        height: 300px;
-        margin-bottom: 90px;
-    }
+  .globe-img {
+    width: auto;
+    height: 300px;
+    margin-bottom: 90px;
+  }
 
-    .empty-text {
-        font-size: 32px;
-        color: #fff;
-        margin-bottom: 40px;
-        text-align: center;
-    }
+  .empty-text {
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 40px;
+    text-align: center;
+  }
 
-    ion-fab-button {
-        font-size: 24px;
-        border-radius: 50%;
-    }
+  ion-fab-button {
+    font-size: 24px;
+    border-radius: 50%;
+  }
+
+  ion-fab {
+    bottom: calc(
+      var(--footer-height, 56px) + 16px
+    ); /* Add padding above the footer */
+  }
 }

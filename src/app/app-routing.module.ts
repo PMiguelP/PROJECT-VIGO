@@ -92,6 +92,13 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'home',
   },
+  {
+    path: 'event-participants/:id',
+    loadChildren: () =>
+      import('./pages/event-participants/event-participants.module').then(
+        (m) => m.EventParticipantsPageModule
+      ),
+  },
 ];
 
 @NgModule({
