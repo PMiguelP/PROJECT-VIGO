@@ -6,6 +6,16 @@
     ion-card {
       margin: 10px 0;
       width: 100%;
+      position: relative;
+    }
+
+    .copy-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 1.2em;
+      color: white;
+      cursor: pointer;
     }
   }
 }
@@ -61,13 +71,17 @@ ion-card {
 }
 
 ion-fab-button {
-  margin-bottom: 20px;
+  margin-bottom: calc(20px + 1cm); /* Moves it 1cm higher */
 }
 
 .custom-item {
-  --background: #f4f5f8;
   border-radius: 8px;
   margin: 10px 0;
+}
+
+ion-item-option {
+  --background: #6c757d; /* Grey background */
+  --color: white; /* White icons */
 }
 
 .error-message {

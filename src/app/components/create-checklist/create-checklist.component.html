@@ -1,0 +1,73 @@
+<div class="checklist-form">
+  <!-- Close Button -->
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <!-- Call dismissModal() when the button is clicked -->
+        <ion-button (click)="dismissModal()">Close</ion-button>
+      </ion-buttons>
+      <ion-title>{{
+        isUpdating ? "Update Checklist" : "Create Checklist"
+      }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form
+    [formGroup]="checklistForm"
+    (ngSubmit)="isUpdating ? updateChecklist() : createChecklist()"
+  >
+    <!-- Name Field -->
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input id="name" formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <ion-note
+      slot="error"
+      *ngIf="
+        checklistForm.get('name')?.invalid && checklistForm.get('name')?.touched
+      "
+    >
+      <small *ngIf="checklistForm.get('name')?.errors?.['required']"
+        >Name is required.</small
+      >
+      <small *ngIf="checklistForm.get('name')?.errors?.['minlength']"
+        >Name must be at least 3 characters long.</small
+      >
+    </ion-note>
+
+    <!-- Description Field -->
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea
+        id="description"
+        formControlName="description"
+      ></ion-textarea>
+    </ion-item>
+    <ion-note
+      slot="error"
+      *ngIf="
+        checklistForm.get('description')?.invalid &&
+        checklistForm.get('description')?.touched
+      "
+    >
+      <small *ngIf="checklistForm.get('description')?.errors?.['required']"
+        >Description is required.</small
+      >
+      <small *ngIf="checklistForm.get('description')?.errors?.['minlength']"
+        >Description must be at least 5 characters long.</small
+      >
+    </ion-note>
+
+    <!-- Buttons -->
+    <div class="form-actions">
+      <ion-button
+        type="submit"
+        [disabled]="checklistForm.invalid"
+        expand="full"
+        color="primary"
+      >
+        {{ isUpdating ? "Update Checklist" : "Create Checklist" }}
+      </ion-button>
+    </div>
+  </form>
+</div>

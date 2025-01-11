@@ -1,3 +1,169 @@
-<p>
-  create-itenerary works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{
+        isViewOnly
+          ? "View Itinerary"
+          : isEdit
+          ? "Edit Itinerary"
+          : "Create Itinerary"
+      }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form
+    *ngIf="!isViewOnly; else viewTemplate"
+    (ngSubmit)="isEdit ? updateItinerary() : createItinerary()"
+  >
+    <!-- Event Dropdown -->
+    <ion-item *ngIf="!isEdit">
+      <ion-label>Event</ion-label>
+      <ion-select
+        [(ngModel)]="selectedEventId"
+        (ionChange)="onEventSelect($event.detail.value)"
+        name="eventId"
+        required
+      >
+        <ion-select-option *ngFor="let event of events" [value]="event.id">
+          {{ event.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Name Field -->
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input
+        [(ngModel)]="itineraryData.name"
+        name="name"
+        [readonly]="isViewOnly"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <!-- Description Field -->
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-input
+        [(ngModel)]="itineraryData.description"
+        name="description"
+        [readonly]="isViewOnly"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <!-- Start Date Field -->
+    <ion-item>
+      <ion-label>Start Date</ion-label>
+      <ion-input
+        [(ngModel)]="itineraryData.startDate"
+        name="startDate"
+        type="date"
+        [readonly]="isViewOnly"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <!-- End Date Field -->
+    <ion-item>
+      <ion-label>End Date</ion-label>
+      <ion-input
+        [(ngModel)]="itineraryData.endDate"
+        name="endDate"
+        type="date"
+        [readonly]="isViewOnly"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <!-- Submit Button -->
+    <ion-button
+      *ngIf="!isViewOnly"
+      expand="full"
+      type="submit"
+      [disabled]="
+        !itineraryData.name ||
+        !itineraryData.description ||
+        !itineraryData.startDate ||
+        !itineraryData.endDate
+      "
+      >{{ isEdit ? "Update" : "Create" }} Itinerary</ion-button
+    >
+  </form>
+
+  <ng-template #viewTemplate>
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <p>{{ itineraryData.name }}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <p>{{ itineraryData.description }}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label>Start Date</ion-label>
+      <p>{{ itineraryData.startDate }}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label>End Date</ion-label>
+      <p>{{ itineraryData.endDate }}</p>
+    </ion-item>
+  </ng-template>
+
+  <!-- Checklist Section (Visible Only in View Mode) -->
+  <ng-container *ngIf="isViewOnly">
+    <ion-item>
+      <ion-title>Checklists</ion-title>
+    </ion-item>
+
+    <ion-card *ngIf="checklists.length === 0">
+      <ion-card-header>
+        <ion-card-title>No checklists available</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card *ngFor="let checklist of checklists">
+      <ion-card-header (click)="goToChecklistPage(checklist.id)">
+        <ion-card-content>{{ checklist.description }}</ion-card-content>
+        <ion-card-title>{{ checklist.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button
+                fill="clear"
+                size="small"
+                (click)="openChecklistModal2(checklist.id)"
+              >
+                <ion-icon slot="icon-only" name="pencil"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button
+                fill="clear"
+                color="danger"
+                size="small"
+                (click)="deleteChecklist(checklist.id)"
+              >
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Add Checklist Button -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openChecklistModal2()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
+</ion-content>

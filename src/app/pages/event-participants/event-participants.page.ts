@@ -22,7 +22,7 @@ export class EventParticipantsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.eventId = this.route.snapshot.paramMap.get('id');
+    this.eventId = this.route.snapshot.queryParams['id'];
     if (this.eventId) {
       this.loadParticipants(this.eventId);
     } else {

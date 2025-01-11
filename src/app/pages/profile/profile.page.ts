@@ -108,4 +108,16 @@ export class ProfilePage implements OnInit {
       );
     }
   }
+
+  onLogout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        console.log('Logged out successfully.');
+        // Optionally, display a toast or confirmation message
+      },
+      error: (err) => {
+        console.error('Error during logout:', err);
+      },
+    });
+  }
 }

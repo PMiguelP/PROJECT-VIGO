@@ -89,15 +89,29 @@ const routes: Routes = [
       ),
   },
   {
-    path: '**',
-    redirectTo: 'home',
-  },
-  {
-    path: 'event-participants/:id',
+    path: 'event-participants',
     loadChildren: () =>
       import('./pages/event-participants/event-participants.module').then(
         (m) => m.EventParticipantsPageModule
       ),
+  },
+  {
+    path: 'location-picker-page',
+    loadChildren: () =>
+      import('./pages/location-picker-page/location-picker-page.module').then(
+        (m) => m.LocationPickerPagePageModule
+      ),
+  },
+  {
+    path: 'checklist-item-meida',
+    loadChildren: () =>
+      import('./pages/checklist-item-meida/checklist-item-meida.module').then(
+        (m) => m.ChecklistItemMeidaPageModule
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
   },
 ];
 

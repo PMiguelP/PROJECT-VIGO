@@ -11,45 +11,57 @@
   </ion-header>
 
   <div *ngIf="hasData; else emptyTemplate" class="trips-container">
-    <ion-list>
-      <ion-item
-        *ngFor="let trip of tripsData"
-        class="trip-item"
-        lines="none"
-        detail="false"
-      >
-        <div class="trip-content">
-          <div class="trip-info">
-            <img [src]="trip.image" [alt]="trip.title" class="trip-image" />
-            <h2>{{ trip.title }}</h2>
-          </div>
-          <ion-icon
-            name="chevron-forward-outline"
-            class="arrow-icon"
-          ></ion-icon>
-        </div>
+    <ion-item-sliding *ngFor="let itinerary of itineraries">
+      <ion-item class="trip-card">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ itinerary.name }}</ion-card-title>
+            <ion-card-subtitle>{{ itinerary.description }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>Start Date:</strong> {{ itinerary.startDate | date }}</p>
+            <p><strong>End Date:</strong> {{ itinerary.endDate | date }}</p>
+            <p>
+              <strong>Checklist:</strong> {{ itinerary.checklists.length }}
+              items
+            </p>
+          </ion-card-content>
+        </ion-card>
       </ion-item>
-    </ion-list>
-    <ion-button expand="full" class="view-button">
-      View specific itinerary
-    </ion-button>
+
+      <!-- Swipe Actions -->
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="viewItinerary(itinerary)">
+          <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="warning" (click)="editItinerary(itinerary)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="deleteItinerary(itinerary)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </div>
 
   <ng-template #emptyTemplate>
     <div class="empty-container">
       <img
-        src="assets/images/globe-with-plane.png"
-        alt="Globe illustration"
-        class="globe-img"
+        src="../../assets/images/vecteezy_plane-flying-around-the-world-clipart-design-illustration_9385013.png"
+        alt="Celebrating"
       />
       <p class="empty-text">
         Nothing to see here, start now your adventure by adding a trip
       </p>
-      <ion-fab-button (click)="addTrip()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
     </div>
   </ng-template>
+
+  <!-- Always Visible Add Button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openNewEventModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <app-footer-tabs></app-footer-tabs>

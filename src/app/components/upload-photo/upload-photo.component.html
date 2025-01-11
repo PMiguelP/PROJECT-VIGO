@@ -1,0 +1,20 @@
+<div class="upload-container">
+  <h3>Upload Photo</h3>
+  <input
+    type="file"
+    (change)="onFileSelected($event)"
+    aria-label="Select a file to upload"
+  />
+  <button
+    [disabled]="!selectedFile || !checklistItemId"
+    (click)="uploadFile()"
+    aria-label="Upload the selected file"
+  >
+    Upload
+  </button>
+
+  <!-- Show file name only if selectedFile is not null -->
+  <p *ngIf="selectedFile" class="file-preview">
+    Selected file: {{ selectedFile?.name }}
+  </p>
+</div>

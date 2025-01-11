@@ -1,5 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/events"></ion-back-button>
+    </ion-buttons>
+
     <ion-title>Participants</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,8 +22,15 @@
 
   <ion-list *ngIf="!isLoading && participants.length > 0">
     <ion-item *ngFor="let participant of participants">
+      <ion-avatar slot="start">
+        <!-- Use the presetProfilePictureUrl if it exists -->
+        <img
+          *ngIf="participant.presetProfilePictureUrl"
+          [src]="participant.presetProfilePictureUrl.url || participant.presetProfilePictureUrl"
+        />
+      </ion-avatar>
       <ion-label>
-        <h2>User ID: {{ participant.userId }}</h2>
+        <h2>{{ participant.name || 'Unnamed' }}</h2>
         <p>Role: {{ participant.role }}</p>
         <p>Status: {{ participant.status }}</p>
       </ion-label>

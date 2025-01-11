@@ -7,13 +7,13 @@
 .back-button {
   margin-right: 10px;
   color: #fff;
-  font-size: 24px;
+  font-size: 14px;
 }
 
 ion-title {
   flex: 1;
   text-align: center;
-  font-size: 36px;
+  font-size: 20px;
   color: #fff;
 }
 
@@ -90,8 +90,6 @@ ion-button.view-button::part(native) {
   }
 
   ion-fab {
-    bottom: calc(
-      var(--footer-height, 56px) + 16px
-    ); /* Add padding above the footer */
+    bottom: calc(16px + 1cm); /* Lifts the FAB 1cm above the bottom */
   }
 }

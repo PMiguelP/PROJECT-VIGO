@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{
+      mode === "create" ? "Create Checklist Item" : "Edit Checklist Item"
+    }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="checklistItemForm" (ngSubmit)="submitForm()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Location Name</ion-label>
+        <ion-input formControlName="locationName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Location Address</ion-label>
+        <ion-input formControlName="locationAddress"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Latitude</ion-label>
+        <ion-input type="number" formControlName="latitude"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Longitude</ion-label>
+        <ion-input type="number" formControlName="longitude"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pick Location</ion-label>
+        <ion-button expand="block" (click)="openLocationPicker()"
+          >Choose Location</ion-button
+        >
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Estimated Time</ion-label>
+        <ion-input formControlName="estimatedTime"></ion-input>
+      </ion-item>
+      <!-- Dropdown for Status -->
+      <ion-item>
+        <ion-label position="floating">Status</ion-label>
+        <ion-select formControlName="status" placeholder="Select Status">
+          <ion-select-option value="NOT_STARTED">Not Started</ion-select-option>
+          <ion-select-option value="COMPLETED">Completed</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-footer>
+      <ion-button
+        type="submit"
+        expand="block"
+        [disabled]="checklistItemForm.invalid || isSubmitting"
+      >
+        {{ mode === "create" ? "Create" : "Save" }}
+      </ion-button>
+    </ion-footer>
+  </form>
+</ion-content>

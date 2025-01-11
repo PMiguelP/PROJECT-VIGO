@@ -155,4 +155,24 @@ export class UserService {
     console.error('UserService Error:', errorMessage);
     return throwError(() => new Error(errorMessage));
   }
+
+  getUserInfoById(userId: string): Observable<User> {
+    return new Observable((observer) => {
+      this.showLoading('Loading user info...').then((loading) => {
+        this.http
+          .get<User>(`${this.apiUrl}/user/info/${userId}`, this.getHeaders()) // Call to the new endpoint with userId
+          .pipe(
+            catchError(this.handleError),
+            finalize(() => loading.dismiss())
+          )
+          .subscribe({
+            next: (user) => {
+              observer.next(user);
+              observer.complete();
+            },
+            error: (error) => observer.error(error),
+          });
+      });
+    });
+  }
 }

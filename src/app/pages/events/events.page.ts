@@ -15,6 +15,9 @@ import { NewEventComponent } from '../../components/new-event/new-event.componen
 export class EventsPage implements OnInit {
   hasData: boolean = false;
   eventsData: Event[] = [];
+  filteredEvents: Event[] = [];
+  searchQuery: string = '';
+  filter: 'oldest' | 'newest' = 'newest';
 
   constructor(
     private modalCtrl: ModalController,
@@ -31,13 +34,46 @@ export class EventsPage implements OnInit {
     this.eventService.getEvents().subscribe({
       next: (events) => {
         this.eventsData = events;
-        this.hasData = this.eventsData.length > 0;
+        this.applyFilters();
       },
       error: (err) => {
         console.error('Failed to load events:', err);
         this.hasData = false;
       },
     });
+  }
+
+  applyFilters() {
+    // Filter by search query
+    this.filteredEvents = this.eventsData.filter((event) =>
+      event.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+
+    // Sort based on the selected filter
+    if (this.filter === 'newest') {
+      this.filteredEvents.sort(
+        (a, b) =>
+          new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+      );
+    } else {
+      this.filteredEvents.sort(
+        (a, b) =>
+          new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+      );
+    }
+
+    this.hasData = this.filteredEvents.length > 0;
+  }
+
+  // Event handler for search input change
+  onSearchChange() {
+    this.applyFilters();
+  }
+
+  // Event handler for filter change
+  onFilterChange(event: any) {
+    this.filter = event.detail.value;
+    this.applyFilters();
   }
 
   async openNewEventModal() {
@@ -49,7 +85,7 @@ export class EventsPage implements OnInit {
     modal.onDidDismiss().then((result) => {
       if (result.data) {
         this.eventsData.push(result.data);
-        this.hasData = this.eventsData.length > 0;
+        this.applyFilters();
         this.showToast('Event created successfully');
       }
     });
@@ -73,6 +109,7 @@ export class EventsPage implements OnInit {
         if (index !== -1) {
           this.eventsData[index] = result.data;
         }
+        this.applyFilters();
         this.showToast('Event updated successfully');
       }
     });
@@ -111,7 +148,7 @@ export class EventsPage implements OnInit {
                 this.eventsData = this.eventsData.filter(
                   (e) => e.id !== event.id
                 );
-                this.hasData = this.eventsData.length > 0;
+                this.applyFilters();
                 this.showToast('Event deleted successfully');
               },
               error: (err) => {

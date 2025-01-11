@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Back Button -->
+    <ion-buttons slot="start">
+      <ion-button (click)="goBackToChecklistPage()">Go Back</ion-button>
+    </ion-buttons>
+
+    <ion-title>Checklist Item Media</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Tabs using ion-segment -->
+  <ion-segment (ionChange)="segmentChanged($event)" value="pictures">
+    <ion-segment-button value="pictures">
+      <ion-label>Pictures</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="comments">
+      <ion-label>Comments</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Pictures Content -->
+  <div *ngIf="activeTab === 'pictures'">
+    <ion-button (click)="openUploadModal()">Upload Photo</ion-button>
+
+    <ng-container *ngIf="photos$ | async as photos; else loadingPhotos">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngFor="let photo of photos">
+            <ion-card>
+              <img [src]="photo" alt="Checklist Photo" />
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ng-container *ngIf="photos.length === 0">
+        <p class="no-photos">No photos available for this item.</p>
+      </ng-container>
+    </ng-container>
+    <ng-template #loadingPhotos>
+      <ion-spinner name="bubbles"></ion-spinner>
+    </ng-template>
+  </div>
+
+  <!-- Comments Content -->
+  <div *ngIf="activeTab === 'comments'">
+    <!-- Existing Comments -->
+    <ng-container *ngIf="comments$ | async as comments; else loadingComments">
+      <ion-list>
+        <ion-item *ngFor="let comment of comments">
+          <ion-label>
+            <h3>{{ comment.userId }}</h3>
+            <p>{{ comment.comment }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ng-container *ngIf="comments.length === 0">
+        <p class="no-comments">No comments available for this item.</p>
+      </ng-container>
+    </ng-container>
+    <ng-template #loadingComments>
+      <ion-spinner name="bubbles"></ion-spinner>
+    </ng-template>
+
+    <!-- Add New Comment -->
+    <ion-footer>
+      <ion-toolbar>
+        <ion-textarea
+          [(ngModel)]="newComment"
+          placeholder="Write a comment..."
+          autoGrow="true"
+          rows="1"
+        ></ion-textarea>
+        <ion-buttons slot="end">
+          <ion-button (click)="postComment()" [disabled]="!newComment.trim()">
+            <ion-icon name="send-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
+  </div>
+</ion-content>

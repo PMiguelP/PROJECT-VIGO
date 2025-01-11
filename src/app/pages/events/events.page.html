@@ -1,26 +1,45 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title style="font-size: large">My Events</ion-title>
+    <ion-title style="font-size: large">My Trips</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-text-center ion-padding" [fullscreen]="true">
+  <!-- Search Input -->
+  <ion-searchbar
+    [(ngModel)]="searchQuery"
+    (ionInput)="onSearchChange()"
+    debounce="500"
+    placeholder="Search by trip name"
+  ></ion-searchbar>
+
+  <!-- Dropdown Filter -->
+  <ion-item>
+    <ion-label>Sort by</ion-label>
+    <ion-select [(ngModel)]="filter" (ionChange)="onFilterChange($event)">
+      <ion-select-option value="newest">Newest</ion-select-option>
+      <ion-select-option value="oldest">Oldest</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <!-- Dynamic Event List or Empty State -->
   <div *ngIf="hasData; else emptyTemplate">
     <div class="events-list">
       <!-- Use ion-item-sliding for swipe actions -->
-      <ion-item-sliding *ngFor="let event of eventsData">
-        <ion-item class="ion-no-padding">
-          <ion-card
-            class="ion-margin-vertical ion-no-margin"
-            style="width: 100%"
-          >
+      <ion-item-sliding *ngFor="let event of filteredEvents">
+        <ion-item class="ion-no-padding custom-item">
+          <ion-card class="ion-margin-vertical ion-no-margin">
             <ion-card-header>
+              <ion-card-subtitle
+                >Location:{{ event.destiny }}</ion-card-subtitle
+              >
               <ion-card-title>{{ event.name }}</ion-card-title>
-              <ion-card-subtitle>{{ event.destiny }}</ion-card-subtitle>
+              <!-- Floating Copy Icon -->
+              <ion-icon
+                name="copy-outline"
+                class="copy-icon"
+                (click)="copyLink(event)"
+              ></ion-icon>
             </ion-card-header>
             <ion-card-content>
               <p><strong>Description:</strong> {{ event.description }}</p>
@@ -31,35 +50,6 @@
               <p>
                 <strong>End Date:</strong> {{ event.endDate | date: 'short' }}
               </p>
-
-              <!-- Display participants -->
-              <div *ngIf="event.participants && event.participants.length > 0">
-                <strong>Participants:</strong>
-                <ul>
-                  <li *ngFor="let participant of event.participants">
-                    <p><strong>User ID:</strong> {{ participant.userId }}</p>
-                    <p>
-                      <strong>Role:</strong>
-                      <ion-chip color="primary"
-                        >{{ participant.role }}</ion-chip
-                      >
-                    </p>
-                    <p>
-                      <strong>Status:</strong>
-                      <ion-chip
-                        [color]="participant.status === 'CONFIRMED' ? 'success' : 'warning'"
-                      >
-                        {{ participant.status }}
-                      </ion-chip>
-                    </p>
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Button to copy event link -->
-              <ion-button (click)="copyLink(event)" color="primary">
-                Copy Link
-              </ion-button>
             </ion-card-content>
           </ion-card>
         </ion-item>
@@ -95,7 +85,7 @@
   </ng-template>
 
   <!-- Floating Action Button -->
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openNewEventModal()" style="--background: #0373f3">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
