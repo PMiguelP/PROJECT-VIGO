@@ -4,7 +4,7 @@ import {
   ChecklistService,
   Checklist,
 } from '../../services/checklist/checklist.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular'; // Import NavParams
 
 @Component({
   selector: 'app-create-checklist',
@@ -15,15 +15,21 @@ export class CreateChecklistComponent implements OnInit {
   checklistForm!: FormGroup;
   isUpdating = false;
   checklistIdToUpdate = '';
+  itineraryId = ''; // Add this property to store itineraryId
 
   constructor(
     private formBuilder: FormBuilder,
     private checklistService: ChecklistService,
-    private modalController: ModalController // For modal dismissal
+    private modalController: ModalController,
+    private navParams: NavParams // Inject NavParams to access modal props
   ) {}
 
   ngOnInit(): void {
     this.initForm();
+
+    // Retrieve the passed itineraryId from NavParams
+    this.itineraryId = this.navParams.get('itineraryId');
+    console.log('Received itineraryId:', this.itineraryId);
   }
 
   private initForm(): void {
@@ -40,10 +46,14 @@ export class CreateChecklistComponent implements OnInit {
     }
 
     const { name, description } = this.checklistForm.value;
-    const itineraryId = 'your-itinerary-id'; // Replace with dynamic logic.
+
+    if (!this.itineraryId) {
+      console.error('itineraryId is missing');
+      return;
+    }
 
     this.checklistService
-      .createChecklist(itineraryId, name, description)
+      .createChecklist(this.itineraryId, name, description)
       .subscribe({
         next: (newChecklist: Checklist) => {
           console.log('Checklist created successfully:', newChecklist);

@@ -126,7 +126,7 @@
   </ion-card>
   <ion-card
     *ngFor="let checklist of checklists"
-    (click)="openChecklistModal(checklist.id)"
+    (click)="goToChecklistPage(checklist.id)"
   >
     <ion-card-header>
       <ion-card-content>{{ checklist.description }}</ion-card-content>
