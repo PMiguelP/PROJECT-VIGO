@@ -31,6 +31,7 @@
     "@googlemaps/js-api-loader": "^1.16.8",
     "@ionic/angular": "^8.4.1",
     "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
     "ngx-toastr": "^19.0.0",
