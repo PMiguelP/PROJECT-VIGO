@@ -100,14 +100,7 @@ export class ChecklistPage implements OnInit {
         queryParams: { checklistItemId: checklistItemId },
         state: { checklistId: checklistId }, // Pass only the checklistId
       })
-      .then(() => {
-        console.log(
-          'Navigated to Media Page with checklistItemId:',
-          checklistItemId,
-          'and checklistId:',
-          checklistId
-        );
-      })
+      .then(() => {})
       .catch((error) => {
         console.error('Navigation failed', error);
       });

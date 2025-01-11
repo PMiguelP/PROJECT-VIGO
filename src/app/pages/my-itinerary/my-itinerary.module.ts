@@ -10,6 +10,7 @@ import { MyItineraryPage } from './my-itinerary.page';
 
 import { SharedModule } from '../../components/components.module';
 import { CreateIteneraryComponent } from 'src/app/components/create-itenerary/create-itenerary.component';
+import { CreateChecklistComponent } from 'src/app/components/create-checklist/create-checklist.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,10 @@ import { CreateIteneraryComponent } from 'src/app/components/create-itenerary/cr
     MyItineraryPageRoutingModule,
     SharedModule,
   ],
-  declarations: [MyItineraryPage, CreateIteneraryComponent],
+  declarations: [
+    MyItineraryPage,
+    CreateIteneraryComponent,
+    CreateChecklistComponent,
+  ],
 })
 export class MyItineraryPageModule {}

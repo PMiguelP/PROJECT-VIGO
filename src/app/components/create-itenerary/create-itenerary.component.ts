@@ -160,4 +160,31 @@ export class CreateIteneraryComponent implements OnInit {
   closeModal() {
     this.modalCtrl.dismiss();
   }
+
+  async openChecklistModal2(checklistId?: string) {
+    // Use a type guard to check if itineraryData is an Itinerary
+    const itineraryId =
+      'id' in this.itineraryData ? this.itineraryData.id : undefined;
+
+    if (!itineraryId) {
+      console.warn(
+        'No itinerary ID available to pass to the checklist component'
+      );
+      return;
+    }
+
+    const modal = await this.modalCtrl.create({
+      component: CreateChecklistComponent,
+      componentProps: {
+        checklistId,
+        itineraryId,
+      },
+    });
+
+    modal.onDidDismiss().then(() => {
+      this.loadChecklists();
+    });
+
+    await modal.present();
+  }
 }

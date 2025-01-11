@@ -126,11 +126,17 @@
   </ion-card>
   <ion-card
     *ngFor="let checklist of checklists"
-    (click)="goToChecklistPage(checklist.id)"
+    (click)="openChecklistModal(checklist.id)"
   >
     <ion-card-header>
       <ion-card-content>{{ checklist.description }}</ion-card-content>
       <ion-card-title>{{ checklist.name }}</ion-card-title>
     </ion-card-header>
   </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="openChecklistModal2()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
     <ion-title style="font-size: large">My Events</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -48,30 +45,6 @@
               <p>
                 <strong>End Date:</strong> {{ event.endDate | date: 'short' }}
               </p>
-
-              <!-- Display participants -->
-              <div *ngIf="event.participants && event.participants.length > 0">
-                <strong>Participants:</strong>
-                <ul>
-                  <li *ngFor="let participant of event.participants">
-                    <p><strong>User ID:</strong> {{ participant.userId }}</p>
-                    <p>
-                      <strong>Role:</strong>
-                      <ion-chip color="primary"
-                        >{{ participant.role }}</ion-chip
-                      >
-                    </p>
-                    <p>
-                      <strong>Status:</strong>
-                      <ion-chip
-                        [color]="participant.status === 'CONFIRMED' ? 'success' : 'warning'"
-                      >
-                        {{ participant.status }}
-                      </ion-chip>
-                    </p>
-                  </li>
-                </ul>
-              </div>
 
               <!-- Button to copy event link -->
               <ion-button (click)="copyLink(event)" color="primary">
