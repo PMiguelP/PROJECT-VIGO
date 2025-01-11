@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { environment } from 'src/environments/environment';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-location-picker',
@@ -74,6 +75,8 @@ export class LocationPickerComponent implements OnInit {
       stylers: [{ color: '#ff0000' }],
     },
   ];
+
+  constructor(private modalController: ModalController) {}
 
   async ngOnInit() {
     try {
@@ -186,11 +189,13 @@ export class LocationPickerComponent implements OnInit {
         const button = document.getElementById('selectLocationButton');
         if (button) {
           button.addEventListener('click', () => {
-            console.log('Selected Location:');
-            console.log(`Name: ${place.name}`);
-            console.log(`Address: ${place.formatted_address}`);
-            console.log(`Latitude: ${place.geometry!.location!.lat()}`);
-            console.log(`Longitude: ${place.geometry!.location!.lng()}`);
+            const selectedData = {
+              name: place.name,
+              address: place.formatted_address,
+              latitude: place.geometry!.location!.lat(),
+              longitude: place.geometry!.location!.lng(),
+            };
+            this.modalController.dismiss(selectedData); // Send data back to the parent
           });
         }
       });

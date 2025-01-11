@@ -37,6 +37,13 @@
         <ion-input type="number" formControlName="longitude"></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label>Pick Location</ion-label>
+        <ion-button expand="block" (click)="openLocationPicker()"
+          >Choose Location</ion-button
+        >
+      </ion-item>
+
+      <ion-item>
         <ion-label position="floating">Estimated Time</ion-label>
         <ion-input formControlName="estimatedTime"></ion-input>
       </ion-item>
