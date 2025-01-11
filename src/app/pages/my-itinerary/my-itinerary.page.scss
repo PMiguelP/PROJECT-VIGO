@@ -90,8 +90,6 @@ ion-button.view-button::part(native) {
   }
 
   ion-fab {
-    bottom: calc(
-      var(--footer-height, 56px) + 16px
-    ); /* Add padding above the footer */
+    bottom: calc(16px + 1cm); /* Lifts the FAB 1cm above the bottom */
   }
 }

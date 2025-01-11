@@ -5,7 +5,11 @@ import {
   CreateItineraryDto,
   Itinerary,
 } from '../../services/itenerarys/itenerarys.service';
-import { ModalController } from '@ionic/angular';
+import {
+  ModalController,
+  AlertController,
+  ToastController,
+} from '@ionic/angular'; // Import AlertController and ToastController
 import {
   ChecklistService,
   Checklist,
@@ -37,7 +41,9 @@ export class CreateIteneraryComponent implements OnInit {
     private itineraryService: ItineraryService,
     private checklistService: ChecklistService,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private alertCtrl: AlertController, // Inject AlertController
+    private toastCtrl: ToastController // Inject ToastController
   ) {}
 
   ngOnInit() {
@@ -69,7 +75,7 @@ export class CreateIteneraryComponent implements OnInit {
           },
           (error) => {
             console.error('Error loading checklists', error);
-            alert('Failed to load checklists');
+            this.showToast('Failed to load checklists', 'danger');
           }
         );
     } else {
@@ -80,10 +86,6 @@ export class CreateIteneraryComponent implements OnInit {
   onEventSelect(eventId: string) {
     const selectedEvent = this.events.find((event) => event.id === eventId);
     if (selectedEvent && !this.isEdit) {
-      this.itineraryData.name = selectedEvent.name;
-      this.itineraryData.description = selectedEvent.description;
-      this.itineraryData.startDate = this.formatDate(selectedEvent.startDate);
-      this.itineraryData.endDate = this.formatDate(selectedEvent.endDate);
     }
   }
 
@@ -104,12 +106,10 @@ export class CreateIteneraryComponent implements OnInit {
         .createItinerary(this.selectedEventId, data)
         .subscribe(
           (itinerary) => {
-            alert('Itinerary created successfully!');
             this.modalCtrl.dismiss(itinerary); // Return the new itinerary
           },
           (error) => {
-            console.error('Error creating itinerary', error);
-            alert('Error creating itinerary');
+            this.showToast('Error creating itinerary', 'danger');
           }
         );
     }
@@ -131,12 +131,11 @@ export class CreateIteneraryComponent implements OnInit {
 
     this.itineraryService.updateItinerary(id, formattedData).subscribe(
       (updatedItinerary) => {
-        alert('Itinerary updated successfully!');
-        this.modalCtrl.dismiss(updatedItinerary); // Return the updated itinerary
+        this.modalCtrl.dismiss(updatedItinerary);
       },
       (error) => {
         console.error('Error updating itinerary', error);
-        alert('Error updating itinerary');
+        this.showToast('Error updating itinerary', 'danger');
       }
     );
   }
@@ -174,17 +173,61 @@ export class CreateIteneraryComponent implements OnInit {
     }
 
     const modal = await this.modalCtrl.create({
+      // Use modalCtrl here
       component: CreateChecklistComponent,
       componentProps: {
-        checklistId,
-        itineraryId,
+        checklistId: checklistId || null, // Pass the checklist ID for editing (if any)
+        itineraryId: itineraryId, // Pass the itinerary ID for creating
       },
     });
 
     modal.onDidDismiss().then(() => {
+      // Refresh the checklists or perform any necessary post-modal actions
       this.loadChecklists();
     });
 
     await modal.present();
+  }
+
+  async deleteChecklist(checklistId: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm Deletion',
+      message: 'Are you sure you want to delete this checklist?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.checklistService.deleteChecklist(checklistId).subscribe({
+              next: () => {
+                this.checklists = this.checklists.filter(
+                  (c) => c.id !== checklistId
+                );
+                this.showToast('Checklist deleted successfully');
+              },
+              error: (err) => {
+                console.error('Error deleting checklist:', err);
+                this.showToast('Failed to delete checklist', 'danger');
+              },
+            });
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  // Define the showToast method using ToastController
+  async showToast(message: string, color: string = 'success') {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      color, // 'success' or 'danger'
+    });
+    toast.present();
   }
 }

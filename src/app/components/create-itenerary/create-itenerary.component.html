@@ -115,28 +115,55 @@
     </ion-item>
   </ng-template>
 
-  <!-- Checklist Section -->
-  <ion-item>
-    <ion-title>Checklists</ion-title>
-  </ion-item>
-  <ion-card *ngIf="checklists.length === 0">
-    <ion-card-header>
-      <ion-card-title>No checklists available</ion-card-title>
-    </ion-card-header>
-  </ion-card>
-  <ion-card
-    *ngFor="let checklist of checklists"
-    (click)="goToChecklistPage(checklist.id)"
-  >
-    <ion-card-header>
-      <ion-card-content>{{ checklist.description }}</ion-card-content>
-      <ion-card-title>{{ checklist.name }}</ion-card-title>
-    </ion-card-header>
-  </ion-card>
+  <!-- Checklist Section (Visible Only in View Mode) -->
+  <ng-container *ngIf="isViewOnly">
+    <ion-item>
+      <ion-title>Checklists</ion-title>
+    </ion-item>
 
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="openChecklistModal2()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-card *ngIf="checklists.length === 0">
+      <ion-card-header>
+        <ion-card-title>No checklists available</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card *ngFor="let checklist of checklists">
+      <ion-card-header (click)="goToChecklistPage(checklist.id)">
+        <ion-card-content>{{ checklist.description }}</ion-card-content>
+        <ion-card-title>{{ checklist.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button
+                fill="clear"
+                size="small"
+                (click)="openChecklistModal2(checklist.id)"
+              >
+                <ion-icon slot="icon-only" name="pencil"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button
+                fill="clear"
+                color="danger"
+                size="small"
+                (click)="deleteChecklist(checklist.id)"
+              >
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Add Checklist Button -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openChecklistModal2()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
 </ion-content>

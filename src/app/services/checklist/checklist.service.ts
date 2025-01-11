@@ -158,6 +158,26 @@ export class ChecklistService {
     });
   }
 
+  getChecklistById(checklistId: string): Observable<Checklist> {
+    return new Observable<Checklist>((observer) => {
+      this.showLoading('Loading checklist...').then((loading) => {
+        from(axios.get(`${this.apiUrl}/${checklistId}`))
+          .pipe(
+            map((response) => response.data),
+            catchError((error) => this.handleError(error)),
+            finalize(() => loading.dismiss())
+          )
+          .subscribe({
+            next: (checklist) => {
+              observer.next(checklist);
+              observer.complete();
+            },
+            error: (error) => observer.error(error),
+          });
+      });
+    });
+  }
+
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(() => error.response?.data || error);
