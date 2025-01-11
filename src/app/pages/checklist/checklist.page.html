@@ -33,9 +33,10 @@
         [checked]="item.status === 'COMPLETED'"
         (ionChange)="moveTask(item)"
       ></ion-checkbox>
-      <ion-button slot="end" (click)="goMediaPage(item.id)">
+      <ion-button slot="end" (click)="goMediaPage(item.id, item.checklistId)">
         <ion-icon name="attach"></ion-icon>
       </ion-button>
+
       <ion-button slot="end" (click)="createModal('edit', item)">
         <ion-icon name="create"></ion-icon>
       </ion-button>

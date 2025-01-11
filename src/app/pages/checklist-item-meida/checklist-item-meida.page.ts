@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ChecklistItemService } from '../../services/checklist-item/checklist-item.service';
 import {
@@ -18,6 +18,7 @@ import { take } from 'rxjs/operators';
 })
 export class ChecklistItemMeidaPage implements OnInit {
   checklistItemId: string = '';
+  checklistId: string = '';
   photos$: Observable<string[]> | null = null;
   comments$: Observable<Comment[]> | null = null;
   activeTab: string = 'pictures';
@@ -28,41 +29,66 @@ export class ChecklistItemMeidaPage implements OnInit {
     private checklistItemService: ChecklistItemService,
     private commentService: CommentService,
     private modalController: ModalController,
-    private authService: AuthService // Inject AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.checklistItemId = params['checklistItemId'];
+
+      // Tentar buscar o checklistId dos queryParams primeiro
+      this.checklistId = params['checklistId'];
+
+      // Caso não esteja nos queryParams, buscar no estado de navegação
+      if (!this.checklistId) {
+        const navigation = this.router.getCurrentNavigation();
+        this.checklistId = navigation?.extras.state?.['checklistId'] || '';
+
+        if (!this.checklistId) {
+          console.error('Checklist ID is missing. Cannot proceed.');
+        }
+      }
+
       if (this.checklistItemId) {
         this.loadPhotos();
         this.loadComments();
+      } else {
+        console.error('Checklist Item ID is missing. Cannot load media.');
       }
     });
   }
 
   loadPhotos() {
-    this.photos$ = this.checklistItemService.getChecklistItemPhotos(
-      this.checklistItemId
-    );
+    if (this.checklistItemId) {
+      this.photos$ = this.checklistItemService.getChecklistItemPhotos(
+        this.checklistItemId
+      );
+    } else {
+      console.error('Cannot load photos without a Checklist Item ID.');
+    }
   }
 
   loadComments() {
-    this.comments$ = this.commentService.getCommentsForChecklistItem(
-      this.checklistItemId
-    );
+    if (this.checklistItemId) {
+      this.comments$ = this.commentService.getCommentsForChecklistItem(
+        this.checklistItemId
+      );
+    } else {
+      console.error('Cannot load comments without a Checklist Item ID.');
+    }
   }
 
   async openUploadModal() {
     const modal = await this.modalController.create({
       component: UploadPhotoComponent,
       componentProps: {
-        checklistItemId: this.checklistItemId, // Pass the ID to the component
+        checklistItemId: this.checklistItemId,
       },
     });
 
     modal.onDidDismiss().then(() => {
-      this.loadPhotos(); // Refresh photos after upload
+      this.loadPhotos();
     });
 
     await modal.present();
@@ -72,8 +98,6 @@ export class ChecklistItemMeidaPage implements OnInit {
     this.activeTab = event.detail.value;
   }
 
-  // Post a new comment
-  // Post a new comment
   postComment() {
     this.authService.user$.pipe(take(1)).subscribe((user) => {
       if (!user) {
@@ -86,15 +110,10 @@ export class ChecklistItemMeidaPage implements OnInit {
         userId: user.id,
         commentType: 'CHECKLIST_ITEM',
       };
-      if (
-        !commentData.checklistItemId ||
-        !commentData.comment ||
-        !commentData.userId
-      ) {
-        console.error('Comment data is incomplete:', commentData);
+      if (!commentData.comment) {
+        console.error('Comment is empty. Cannot post an empty comment.');
         return;
       }
-      console.log('Posting comment with data:', commentData);
 
       this.commentService.createComment(commentData).subscribe({
         next: () => {
@@ -106,5 +125,15 @@ export class ChecklistItemMeidaPage implements OnInit {
         },
       });
     });
+  }
+
+  goBackToChecklistPage() {
+    if (this.checklistId) {
+      this.router.navigate(['/checklist'], {
+        queryParams: { id: this.checklistId },
+      });
+    } else {
+      console.error('Checklist ID is missing. Cannot navigate back.');
+    }
   }
 }

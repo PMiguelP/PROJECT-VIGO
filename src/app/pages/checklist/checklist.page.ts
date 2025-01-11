@@ -71,12 +71,10 @@ export class ChecklistPage implements OnInit {
     const newStatus =
       item.status === 'NOT_STARTED' ? 'COMPLETED' : 'NOT_STARTED';
 
-    // Call the service to update the status
     this.checklistItemService
       .updateChecklistItem(item.id, { status: newStatus })
       .subscribe({
         next: (updatedItem) => {
-          // Update the local checklist item to reflect the change
           const index = this.checklistItems.findIndex((i) => i.id === item.id);
           if (index !== -1) {
             this.checklistItems[index] = updatedItem;
@@ -96,17 +94,18 @@ export class ChecklistPage implements OnInit {
     this.selectedSegment = event.detail.value;
   }
 
-  // Updated goMediaPage function
-  goMediaPage(checklistItemId: string) {
-    // Navigate to the Media Page, passing the checklistItemId
+  goMediaPage(checklistItemId: string, checklistId: string) {
     this.router
       .navigate(['/checklist-item-meida'], {
         queryParams: { checklistItemId: checklistItemId },
+        state: { checklistId: checklistId }, // Pass only the checklistId
       })
       .then(() => {
         console.log(
           'Navigated to Media Page with checklistItemId:',
-          checklistItemId
+          checklistItemId,
+          'and checklistId:',
+          checklistId
         );
       })
       .catch((error) => {
