@@ -142,4 +142,18 @@ export class NewEventComponent implements OnInit {
       }
     }
   }
+
+  goToEventsParticipants() {
+    if (this.eventData?.id) {
+      this.router
+        .navigate(['/event-participants'], {
+          queryParams: { id: this.eventData.id },
+        })
+        .then(() => {
+          this.modalCtrl.dismiss(); // Dismiss the modal after navigation
+        });
+    } else {
+      console.error('Event ID is missing or invalid.');
+    }
+  }
 }

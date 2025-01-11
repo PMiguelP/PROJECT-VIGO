@@ -1,43 +1,44 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <!-- Cabeçalho -->
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <div class="header-container">
-        <ion-button fill="clear" class="back-button">
-          <ion-icon name="arrow-back-outline"></ion-icon>
-        </ion-button>
-        <ion-title size="large">CheckList</ion-title>
-      </div>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)" value="NOT_STARTED">
+      <ion-segment-button value="NOT_STARTED">Not-Started</ion-segment-button>
+      <ion-segment-button value="COMPLETED">Complete</ion-segment-button>
+    </ion-segment>
+    <ion-buttons slot="end">
+      <ion-button (click)="createModal('create')">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)" class="custom-segment">
-    <ion-segment-button value="todo">
-      <ion-label>To Do</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="done">
-      <ion-label>Done</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+<ion-content>
+  <!-- Show spinner when loading -->
+  <ion-spinner *ngIf="isLoading"></ion-spinner>
 
-  <div class="checklist-content">
-    <div class="tasks-container">
-      <ion-item *ngFor="let task of filteredTasks" class="task-item">
-        <div class="task-content">
-          <div class="ball"></div>
-          <ion-label (click)="moveTask(task)" class="task-label">
-            {{ task.title }}
-          </ion-label>
-          <ion-label class="task-status">
-            {{ task.status }}
-          </ion-label>
-        </div>
-      </ion-item>
-    </div>
+  <!-- Show message when no checklist items are found -->
+  <div *ngIf="!isLoading && checklistItems.length === 0">
+    <p>No checklist items found.</p>
   </div>
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button class="add-button">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
+  <!-- Checklist items list -->
+  <ion-list *ngIf="!isLoading">
+    <ion-item *ngFor="let item of filteredTasks">
+      <ion-label>
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+      </ion-label>
+      <ion-checkbox
+        slot="start"
+        [checked]="item.status === 'COMPLETED'"
+        (ionChange)="moveTask(item)"
+      ></ion-checkbox>
+      <ion-button slot="end" (click)="goMediaPage(item.id)">
+        <ion-icon name="attach"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" (click)="createModal('edit', item)">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

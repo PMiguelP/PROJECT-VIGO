@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons slot="end">
       <!-- User Icon for Viewing Participants -->
-      <ion-button *ngIf="isViewOnly" (click)="goToParticipants()">
+      <ion-button *ngIf="isViewOnly" (click)="goToEventsParticipants()">
         <ion-icon name="people-outline" size="large"></ion-icon>
       </ion-button>
       <ion-button (click)="closeModal()">

@@ -8,11 +8,28 @@
 </ion-header>
 
 <ion-content class="ion-text-center ion-padding" [fullscreen]="true">
+  <!-- Search Input -->
+  <ion-searchbar
+    [(ngModel)]="searchQuery"
+    (ionInput)="onSearchChange()"
+    debounce="500"
+    placeholder="Search by event name"
+  ></ion-searchbar>
+
+  <!-- Dropdown Filter -->
+  <ion-item>
+    <ion-label>Sort by</ion-label>
+    <ion-select [(ngModel)]="filter" (ionChange)="onFilterChange($event)">
+      <ion-select-option value="newest">Newest</ion-select-option>
+      <ion-select-option value="oldest">Oldest</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <!-- Dynamic Event List or Empty State -->
   <div *ngIf="hasData; else emptyTemplate">
     <div class="events-list">
       <!-- Use ion-item-sliding for swipe actions -->
-      <ion-item-sliding *ngFor="let event of eventsData">
+      <ion-item-sliding *ngFor="let event of filteredEvents">
         <ion-item class="ion-no-padding">
           <ion-card
             class="ion-margin-vertical ion-no-margin"

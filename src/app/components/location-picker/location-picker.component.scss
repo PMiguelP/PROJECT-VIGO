@@ -1,0 +1,124 @@
+/* location-picker.component.scss */
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #212121;
+}
+
+.search-container {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+}
+
+.back-button,
+.menu-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #212121;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #2c2c2c;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  ion-icon {
+    font-size: 24px;
+  }
+}
+
+.search-box-container {
+  flex: 1;
+  background: #212121;
+  border-radius: 24px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.search-input {
+  width: 100%;
+  height: 24px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  padding: 0;
+
+  &::placeholder {
+    color: #9e9e9e;
+  }
+}
+
+.map-element {
+  width: 100%;
+  height: 100%;
+  background: #212121;
+}
+
+// Style for the Google Places Autocomplete dropdown
+::ng-deep .pac-container {
+  background: #212121;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 8px;
+
+  .pac-item {
+    border-color: #333;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background: #2c2c2c;
+    }
+
+    &:first-child {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+  }
+
+  .pac-icon {
+    filter: invert(1);
+  }
+
+  .pac-item-query {
+    color: white;
+  }
+
+  .pac-matched {
+    color: #4285f4;
+  }
+}
