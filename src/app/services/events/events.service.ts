@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { BehaviorSubject, Observable, from, throwError } from 'rxjs';
-import { map, tap, catchError, finalize } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable,
+  from,
+  throwError,
+  of,
+  forkJoin,
+} from 'rxjs';
+import { map, tap, catchError, finalize, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoadingController } from '@ionic/angular';
+import { UserService } from '../user/user.service';
 
 export interface Event {
   id: string;
@@ -23,6 +31,12 @@ export interface Participant {
   userId: string;
   role: 'ORGANIZER' | 'PARTICIPANT';
   status: 'CONFIRMED' | 'PENDING' | 'DECLINED';
+  name?: string; // Optional field for user's name
+  presetProfilePictureUrl?: {
+    url: string;
+    description: string;
+    category: string;
+  };
 }
 
 export interface Itinerary {
@@ -50,7 +64,10 @@ export class EventService {
 
   private readonly apiUrl = `${environment.apiUrl}/event`;
 
-  constructor(private loadingController: LoadingController) {
+  constructor(
+    private loadingController: LoadingController,
+    private userService: UserService
+  ) {
     axios.defaults.withCredentials = true;
   }
 
@@ -113,6 +130,21 @@ export class EventService {
         from(axios.get(`${this.apiUrl}/${id}`))
           .pipe(
             map((response) => response.data),
+            switchMap((event: Event) => {
+              if (event.participants && event.participants.length > 0) {
+                const participantDetails$ = event.participants.map(
+                  (participant) => this.getParticipantDetails(participant)
+                );
+                return forkJoin(participantDetails$).pipe(
+                  map((participants) => {
+                    event.participants = participants;
+                    return event;
+                  })
+                );
+              } else {
+                return of(event);
+              }
+            }),
             catchError((error) => this.handleError(error)),
             finalize(() => loading.dismiss())
           )
@@ -182,6 +214,28 @@ export class EventService {
           });
       });
     });
+  }
+
+  private getParticipantDetails(
+    participant: Participant
+  ): Observable<Participant> {
+    return this.userService.getUserInfoById(participant.userId).pipe(
+      map((user) => {
+        console.log(user); // Add this to see the structure of `user`
+        return {
+          ...participant,
+          name: user.name,
+          presetProfilePictureUrl: user.presetProfilePicture, // Adjust if necessary
+        };
+      }),
+      catchError((error) => {
+        console.error(
+          `Failed to fetch user info for ${participant.userId}`,
+          error
+        );
+        return of(participant); // Return the participant without additional details on error
+      })
+    );
   }
 
   private handleError(error: any): Observable<never> {

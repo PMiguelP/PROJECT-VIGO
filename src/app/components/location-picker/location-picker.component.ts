@@ -126,7 +126,7 @@ export class LocationPickerComponent implements OnInit {
         this.searchInput.nativeElement,
         {
           types: ['establishment'],
-          componentRestrictions: { country: 'PT' },
+          //omponentRestrictions: { country: 'PT' },
           fields: ['place_id', 'geometry', 'name', 'formatted_address'],
         }
       );
@@ -175,12 +175,14 @@ export class LocationPickerComponent implements OnInit {
       this.markers.push(marker);
 
       const contentString = `
-        <div>
-          <h4>${place.name || 'Unknown'}</h4>
-          <p>${place.formatted_address || 'No address available'}</p>
-          <button id="selectLocationButton">Select Location</button>
-        </div>
-      `;
+  <div>
+    <h4>${place.name || 'Unknown'}</h4>
+    <p>${place.formatted_address || 'No address available'}</p>
+     <button id="selectLocationButton" style="padding: 10px 20px; font-size: 16px; background-color: #4285F4; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Select Location
+    </button>
+  </div>
+`;
 
       this.infoWindow.setContent(contentString);
       this.infoWindow.open(this.map, marker);
@@ -215,5 +217,8 @@ export class LocationPickerComponent implements OnInit {
     } catch (error) {
       console.error('Error clearing markers:', error);
     }
+  }
+  dismissModal() {
+    this.modalController.dismiss(); // Closes the modal without passing data
   }
 }
